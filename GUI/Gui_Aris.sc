@@ -1,19 +1,4 @@
 /*
-100524 igoumeninja
-Aris Bezas
-
-Stasi_Aris.new
-d = FibDisplay(oscMessage: 'l_branch');
-d.show;
-Stasis.start(local: true);
-Stasis.start("AAB")
-Stasis.stop
-SendAmpFreq.start;
-m = Synth(\SendAmpPitch, [\chan, 8, \ampTrig, 1, \freqTrig, 2]); // 
-m.free;
-*/
-
-/*
 100612 igoumeninja
 Aris Bezas
 
