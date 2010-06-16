@@ -116,21 +116,6 @@ Main_GUI	{
 		
 		//mask
 		a = StaticText(mainWindow, Rect(10, 10, 140, 20));
-		a.string = "mask";
-		Button(mainWindow, Rect(20,20,300,20))
-				.states_([
-					["view mask", Color.black, Color.white],
-					["stop mask", Color.white, Color.black],
-				])
-				.action_({ arg butt; addr.sendMsg("/maskView", butt.value)}
-		);
-		Button(mainWindow, Rect(20,20,300,20))
-				.states_([
-					["view beat mask", Color.black, Color.white],
-					["stop beat mask", Color.white, Color.black],
-				])
-				.action_({ arg butt; addr.sendMsg("/megethos_beat", butt.value)}
-		);
 		Button(mainWindow, Rect(20,20,300,20))
 				.states_([
 					["view scope", Color.black, Color.white],
