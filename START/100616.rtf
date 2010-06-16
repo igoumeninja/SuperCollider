@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
 {\fonttbl\f0\fnil\fcharset0 Monaco;}
-{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue0;\red0\green0\blue191;
-\red0\green115\blue0;\red96\green96\blue96;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue191;\red0\green115\blue0;
+\red96\green96\blue96;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
 \f0\fs18 \cf2 /*\
@@ -11,28 +11,27 @@ Aris Bezas\
 This is the rtf file to run - start the classes for the project\
 Try to built a sync module for sending beat\
 \
-*/\cf3 \
-\
-\cf4 SyncSender\cf3 .new\
-\cf4 SyncSender\cf3 .init\
-\
-a = \cf4 SyncSender\cf3 (\cf4 Pbind\cf3 (\cf5 \\event\cf3 , \cf5 '/beats'\cf3 ));\
+*/\cf0 \
+// Control Sync\
+a = \cf3 SyncSender\cf0 (\cf3 Pbind\cf0 (\cf4 \\event\cf0 , \cf4 '/beats'\cf0 ));\
+a.clients = \cf2 NetAddr("127.0.0.1", 12345);\
+\cf0 a.clients = \cf2 NetAddr("127.0.0.1", 57120);\cf0 \
 a.start;\
 a.stop;\
-\
 a.clock.tempo = 200;\
+//---------------------------------------\
 \
-\cf4 Gui_Aris\cf3 .new\
-\cf4 SendAmpFreq\cf3 .start;\
-m = \cf4 Synth\cf3 (\cf5 \\SendAmpPitch\cf3 , [\cf5 \\chan\cf3 , 8, \cf5 \\ampTrig\cf3 , 1, \cf5 \\freqTrig\cf3 , 2]); \cf2 // \cf3 \
+\cf3 Gui_Aris\cf0 .new\
+\cf3 SendAmpFreq\cf0 .start;\
+m = \cf3 Synth\cf0 (\cf4 \\SendAmpPitch\cf0 , [\cf4 \\chan\cf0 , 8, \cf4 \\ampTrig\cf0 , 1, \cf4 \\freqTrig\cf0 , 2]); \cf2 // \cf0 \
 m.free;\
 \
-\cf4 Sendmidi\cf3 .start;\
+\cf3 Sendmidi\cf0 .start;\
 \
 \
-d = \cf4 FibDisplay\cf3 (oscMessage: \cf5 'l_branch'\cf3 );\
+d = \cf3 FibDisplay\cf0 (oscMessage: \cf4 'l_branch'\cf0 );\
 d.show;\
-\cf4 Stasis\cf3 .start(local: \cf4 true\cf3 );\
-\cf4 Stasis\cf3 .start(\cf6 "AAB"\cf3 )\
-\cf4 Stasis\cf3 .stop\
+\cf3 Stasis\cf0 .start(local: \cf3 true\cf0 );\
+\cf3 Stasis\cf0 .start(\cf5 "AAB"\cf0 )\
+\cf3 Stasis\cf0 .stop\
 }
