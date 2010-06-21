@@ -13,7 +13,7 @@ Arbol_GUI	{
 	var	<a;
 	var	<q;		
 	var 	arbolWindow;
-	var	arbolHeight, arbolLeaves;
+	var	arbolHeight, arbolLeaves, arbolWind;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -55,6 +55,10 @@ Arbol_GUI	{
 		arbolLeaves=EZSlider(arbolWindow, 300@20, "leavesLenght ",  ControlSpec(10, 200, \lin, 0.05, 0.01), numberWidth:50,layout:\horz, initVal:0.0, labelWidth: 100);
 		arbolLeaves.setColors(Color.grey,Color.white);
 		arbolLeaves.action_({addr.sendMsg("/arbolLeaves", arbolLeaves.value)});
-
+		//wind
+		arbolWind=EZSlider(arbolWindow, 300@20, "wind ", numberWidth:50,layout:\horz, initVal:0.0, labelWidth: 100);
+		arbolWind.setColors(Color.grey,Color.white);
+		arbolWind.action_({addr.sendMsg("/arbolWind", arbolWind.value)});
+		
 	}
 }

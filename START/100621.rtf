@@ -1,0 +1,44 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue0;\red0\green0\blue191;
+\red0\green115\blue0;\red0\green0\blue191;\red0\green115\blue0;\red96\green96\blue96;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs18 \cf2 /*\
+100616 igoumeninja\
+Aris Bezas\
+\
+This is the rtf file to run - start the classes for the project\
+Try to built a sync module for sending beat\
+\
+control dur from Pattern \
+\
+\
+*/\cf3 \
+\cf2 // Control Sync\cf3 \
+a = \cf4 SyncSender\cf3 (\cf4 Pbind\cf3 (\cf5 \\syncEvent\cf3 , Pseq(Pn([\cf5 '/beats', 3), \\end], 1)\cf3 , \cf5 \\dur\cf3 , \cf4 Pseq\cf3 ([0.1, 0.1, 4, 1])));\
+\cf0 a = \cf6 SyncSender\cf0 (\cf6 Pbind\cf0 (\cf7 \\event\cf0 , \cf7 '/beats'\cf0 , \cf7 \\dur\cf0 , \cf6 Pseq\cf0 ([0.1, 0.1, 4, 1])));\cf3 \
+a.clients = \cf4 NetAddr\cf3 (\cf8 "127.0.0.1"\cf3 , 12345);\
+a.clients = \cf4 NetAddr\cf3 (\cf8 "127.0.0.1"\cf3 , 57120);\
+\
+a.start;\
+a.stop;\
+a.clock.tempo = 40;\
+\cf2 //---------------------------------------\cf3 \
+\cf4 Open_GUI\cf3 .new\
+\cf4 Arbol_GUI\cf3 \
+\cf4 Sound_GUI\cf3 .new\
+\cf4 Main_GUI\cf3 .new\
+\cf4 SendAmpFreq\cf3 .start;\
+m = \cf4 Synth\cf3 (\cf5 \\SendAmpPitch\cf3 , [\cf5 \\chan\cf3 , 8, \cf5 \\ampTrig\cf3 , 1, \cf5 \\freqTrig\cf3 , 2]); \cf2 // \cf3 \
+m.free;\
+\
+\cf4 Sendmidi\cf3 .start;\
+\
+\
+d = \cf4 FibDisplay\cf3 (oscMessage: \cf5 'l_branch'\cf3 );\
+d.show;\
+\cf4 Stasis\cf3 .start(local: \cf4 true\cf3 );\
+\cf4 Stasis\cf3 .start(\cf8 "AAB"\cf3 )\
+\cf4 Stasis\cf3 .stop\
+}

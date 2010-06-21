@@ -15,17 +15,15 @@ Try to built a sync module for sending beat\
 // Control Sync\
 a = \cf3 SyncSender\cf0 (\cf3 Pbind\cf0 (\cf4 \\event\cf0 , \cf4 '/beats'\cf0 ));\
 a.clients = \cf2 NetAddr("127.0.0.1", 12345);\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 a.clients = \cf2 NetAddr("127.0.0.1", 57120);\cf0 \
 a.start;\
 a.stop;\
 a.clock.tempo = 40;\
 //---------------------------------------\
 Open_GUI.new\
-\
+Arbol_GUI\
 Sound_GUI.new\
 Main_GUI.new\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf3 SendAmpFreq\cf0 .start;\
 m = \cf3 Synth\cf0 (\cf4 \\SendAmpPitch\cf0 , [\cf4 \\chan\cf0 , 8, \cf4 \\ampTrig\cf0 , 1, \cf4 \\freqTrig\cf0 , 2]); \cf2 // \cf0 \
 m.free;\
