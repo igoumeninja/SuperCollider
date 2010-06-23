@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue191;\red96\green96\blue96;
+}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs18 \cf2 /*\
+100618 igoumeninja\
+Aris Bezas\
+L-Systems studies\
+RedLSystem: rewrite strings, simple string rewrite class.\
+RedLTurtle\
+\pard\pardeftab560\ql\qnatural
+\cf2 new(lsystem, length, theta, scale, noise)\
+		lsystem - an instance of RedLSystem or a string.\
+		length - line segment length in pixels.  default 40.\
+		theta - angle in degrees.  default 20.\
+		scale - the amount to scale all moving commands ($F, $G, $|) in percent.  default 1.\
+		noise - the amount of uniform noise to add to all angles in radians.  default 0.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf2 \
+$F: draw forward\
+$G: go forward\
+$+: turn right by theta\
+$-: turn left by theta\
+$[: push state\
+$]: pop state\
+$|: draw forward scaled by depth\
+an integer before each character repeats that command n times.\
+\
+SCPen study\
+\
+\
+TODO for LSystem study.\
+\
+*	Seperate characters of the result string. With this you \
+	*	take over the allocation problem of openFramewoks problem\
+	*	you can control the development of the LSystem\
+\
+Aris Bezas Mon, 21 June 2010, 10:15AM\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf2 \ul \ulc2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf2 \ulnone \
+*/\cf0 \
+\
+o = \cf3 NetAddr\cf0 (\cf4 "127.0.0.1"\cf0 , 12345);\
+s = \cf3 NetAddr\cf0 (\cf4 "127.0.0.1"\cf0 , 57120);\
+\
+\
+(\
+k = \{\
+	\cf3 var\cf0  	l,t;\
+	var	theta = 60;\
+	var	length = 13;\
+	\
+	500 do:	\{\
+\pard\pardeftab560\ql\qnatural
+\cf0 		l= \cf3 RedLSystem\cf0 (\cf4 "+++F--F--F"\cf0 , ($F: \cf4 "F--F--2F--GG"\cf0 , $G: \cf4 "GG"\cf0 ));\
+		t = \cf3 RedLTurtle\cf0 (l, length, theta, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 		4 do:	\{\
+			l.next;\
+		\};\
+		o.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		s.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		//theta = Pseq([60, 61, 67, 60], inf).value.postln;\
+		theta = theta - 0.7;\
+		length = length + 0.06;\
+		0.05.wait;	\
+		\};\
+	\}.fork;\
+)\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 // draw LIne all over the window\
+(\
+d = \{\
+	600 do:	\{\
+		o.sendMsg(\cf4 "/drawLine"\cf0 );\
+		s.sendMsg(\cf4 "/drawLine"\cf0 );\
+		0.01.wait;	\
+		\};\
+	\}.fork;\
+)\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 o.sendMsg("\cf4 /startEffect"\cf0 );\
+o.sendMsg("\cf4 /drawLine", "++"\cf0 );\
+\
+(\
+\pard\pardeftab560\ql\qnatural
+\cf0 l= \cf3 RedLSystem\cf0 (\cf4 "+++F--F--F"\cf0 , ($F: \cf4 "F--F--2F--GG"\cf0 , $G: \cf4 "GG"\cf0 ));\
+t = \cf3 RedLTurtle\cf0 (l, 13, 60.05, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 4 .do\{\
+	l.next;		\
+	\};\
+	o.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+	s.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+)\
+\cf2 //--tree\cf0 \
+(\
+\pard\pardeftab560\ql\qnatural
+\cf0 l= \cf3 RedLSystem\cf0 (\cf4 "F"\cf0 , ($F: \cf4 "|[--F][+F]-F"\cf0 ));\
+t = \cf3 RedLTurtle\cf0 (l, 50, 11, 0.65, 10);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 6 .do\{\
+	l.next;		\
+	\};\
+	o.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+	s.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+)\
+\pard\pardeftab560\ql\qnatural
+\cf2 //--carpet\cf0 \
+(\
+l= \cf3 RedLSystem\cf0 (\cf4 "F-F-F-F"\cf0 , ($F: \cf4 "F[F]-F+F[--F]+F-F"\cf0 ));\
+t = \cf3 RedLTurtle\cf0 (l, 10, 90, 1, 1);\
+3.do\{l.next\};\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 o.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+s.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+)\
+\pard\pardeftab560\ql\qnatural
+\cf2 //--koch curve\cf0 \
+(\
+l = \cf3 RedLSystem\cf0 (\cf4 "F"\cf0 , ($F: \cf4 "F-F++F-F"\cf0 ));\
+t = \cf3 RedLTurtle\cf0 (l, 4, 60, 0.91.pow(l.generation));\
+5.do\{l.next\};\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 o.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+s.sendMsg(\cf4 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+\pard\pardeftab560\ql\qnatural
+\cf0 )\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+}
