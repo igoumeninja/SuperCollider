@@ -1,0 +1,90 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue191;\red0\green115\blue0;
+\red96\green96\blue96;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs18 \cf2 /*\
+100616 igoumeninja\
+Aris Bezas\
+\
+This is the rtf file to run - start the classes for the project\
+Try to built a sync module for sending beat\
+\
+control dur from Pattern \
+\
+\
+*/\cf0 \
+\cf2 // Control Sync\cf0 \
+\cf2 //a = SyncSender(Pbind(\\syncEvent, Pseq(Pn(['/beats', 3), \\end], 1), \\dur, Pseq([0.1, 0.1, 4, 1])));\cf0 \
+a = \cf3 SyncSender\cf0 (\cf3 Pbind\cf0 (\cf4 \\event\cf0 , \cf4 '/beats'\cf0 ));\cf2 // simple SyncSender to view beat\cf0 \
+a = \cf3 SyncSender\cf0 (\cf3 Pbind\cf0 (\cf4 \\event\cf0 , \cf4 '/beats'\cf0 , \cf4 \\dur\cf0 , \cf3 Pseq\cf0 ([0.1, 0.1, 4, 1])));\cf2 // sync with durations\cf0 \
+\
+\
+a.clients = \cf3 NetAddr\cf0 (\cf5 "127.0.0.1"\cf0 , 12345);\
+a.clients = \cf3 NetAddr\cf0 (\cf5 "127.0.0.1"\cf0 , 57120);\
+\
+a.start;\
+a.stop;\
+a.clock.tempo = 50;\
+\cf2 //---------------------------------------\cf0 \
+\cf3 Open_GUI\cf0 .new\
+\cf3 Arbol_GUI\cf0 \
+\cf3 Sound_GUI\cf0 .new\
+\cf3 Main_GUI\cf0 .new\
+\cf3 SendAmpFreq\cf0 .start;\
+m = \cf3 Synth\cf0 (\cf4 \\SendAmpPitch\cf0 , [\cf4 \\chan\cf0 , 8, \cf4 \\ampTrig\cf0 , 1, \cf4 \\freqTrig\cf0 , 2]); \cf2 // \cf0 \
+m.free;\
+\
+\cf3 Sendmidi\cf0 .start;\
+\
+\cf2 //--  LSYSTEMS   ---------------------------------\cf0 \
+o = \cf3 NetAddr\cf0 (\cf5 "127.0.0.1"\cf0 , 12345);\
+s = \cf3 NetAddr\cf0 (\cf5 "127.0.0.1"\cf0 , 57120);\
+\
+\cf2 // draw LIne all over the window\cf0 \
+\
+(\
+o.sendMsg(\cf5 "/startEffect"\cf0 );\
+d = \{\
+	600 do:	\{\
+		o.sendMsg(\cf5 "/drawLine"\cf0 );\
+		s.sendMsg(\cf5 "/drawLine"\cf0 );\
+		0.01.wait;	\
+		\};\
+	\}.fork;\
+66)\
+\
+\
+(\
+k = \{\
+	\cf3 var\cf0  	l,t;\
+	\cf3 var\cf0 	theta = 60;\
+	\cf3 var\cf0 	length = 13;\
+	\
+	500 do:	\{\
+\pard\pardeftab560\ql\qnatural
+\cf0 		l= \cf3 RedLSystem\cf0 (\cf5 "+++F--F--F"\cf0 , ($F: \cf5 "F--F--2F--GG"\cf0 , $G: \cf5 "GG"\cf0 ));\
+		t = \cf3 RedLTurtle\cf0 (l, length, theta, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 		4 do:	\{\
+			l.next;\
+		\};\
+		o.sendMsg(\cf5 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		s.sendMsg(\cf5 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		\cf2 //theta = Pseq([60, 61, 67, 60], inf).value.postln;\cf0 \
+		theta = theta - 0.09;\
+		\cf2 length = length - 0.06;\cf0 \
+		0.3.wait;	\
+		\};\
+	\}.fork;\
+ )\
+4k.stop;\
+\cf2 //-----------------------------------------------------------\cf0 \
+\
+d = \cf3 FibDisplay\cf0 (oscMessage: \cf4 'l_branch'\cf0 );\
+d.show;\
+\cf3 Stasis\cf0 .start(local: \cf3 true\cf0 );\
+\cf3 Stasis\cf0 .start(\cf5 "AAB"\cf0 )\
+\cf3 Stasis\cf0 .stop\
+}
