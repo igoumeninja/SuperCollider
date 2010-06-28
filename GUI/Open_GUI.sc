@@ -31,7 +31,7 @@ Open_GUI	{
 		Sendmidi.start;
 		Sound_GUI.new;
 		Main_GUI.new;
-		Arbol_GUI.new;		
+		UnaCiudadSonada.new;		
 	}
 
 }

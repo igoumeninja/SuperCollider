@@ -79,7 +79,32 @@ k = \{\
 		\};\
 	\}.fork;\
  )\
-4k.stop;\
+k.stop;\
+//  KOLOFOTIES\
+(\
+k = \{\
+	\cf3 var\cf0  	l,t;\
+	\cf3 var\cf0 	theta = 10;\
+	\cf3 var\cf0 	length = 130;\
+	\
+	500 do:	\{\
+\pard\pardeftab560\ql\qnatural
+\cf0 		l= \cf3 RedLSystem\cf0 (\cf5 "+++F--F--F"\cf0 , ($F: \cf5 "F--F--2F--GG"\cf0 , $G: \cf5 "GG"\cf0 ));\
+		t = \cf3 RedLTurtle\cf0 (l, length, theta, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 		3 do:	\{\
+			l.next;\
+		\};\
+		o.sendMsg(\cf5 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		s.sendMsg(\cf5 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		\cf2 //theta = Pseq([60, 61, 67, 60], inf).value.postln;\cf0 \
+		theta = theta + 1;\
+		//\cf2 length = length - 0.06;\cf0 \
+		1.wait;	\
+		\};\
+	\}.fork;\
+ )\
+\
 \cf2 //-----------------------------------------------------------\cf0 \
 \
 d = \cf3 FibDisplay\cf0 (oscMessage: \cf4 'l_branch'\cf0 );\
