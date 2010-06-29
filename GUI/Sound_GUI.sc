@@ -46,7 +46,9 @@ Sound_GUI	{
 					["view sound", Color.black, Color.white],
 					["stop sound", Color.white, Color.black],
 				])
-				.action_({ arg butt; addr.sendMsg("/viewSoundChanels", butt.value)}
+				.action_({ arg butt; 
+					addr.sendMsg("/viewSoundChanels", butt.value);
+					}
 		);
 		//numSoundSketches
 		numSoundSketches=EZSlider(soundWindow, 300@20, "numSoundSketches ", ControlSpec(1, 499, \lin, 1, 5), numberWidth:50,layout:\horz, initVal:99, labelWidth: 120);

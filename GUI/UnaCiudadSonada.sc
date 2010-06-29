@@ -43,21 +43,60 @@ UnaCiudadSonada	{
 		q = window.addFlowLayout( 10@10, 20@5 );
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["effecto Linea", Color.black, Color.white],
+					["Linea Horizontal", Color.black, Color.white],
 				])
 				.action_({ 
 				(
-addr.sendMsg("/startEffect");
-{
-	600 do:	{
-		addr.sendMsg("/drawLine");
-		0.01.wait;	
-		};
-	}.fork;
-)
-
-					
-						}
+					addr.sendMsg("/startEffect");
+					{
+						1200 do:	{
+							addr.sendMsg("/drawLine");
+							0.05.wait;	
+							};
+						}.fork;
+					)	
+				}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Linea Vertical", Color.black, Color.white],
+				])
+				.action_({ 
+				(
+					addr.sendMsg("/startEffect");
+					{
+						3600 do:	{
+							addr.sendMsg("/drawLineVertical");
+							0.05.wait;	
+							};
+						}.fork;
+					)	
+				}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["luciernagas", Color.black, Color.white],
+				])
+				.action_({
+				(
+					{
+						var 	l,t;
+						var	theta = 13;
+						var	length = 130;
+						
+						500 do:	{
+							l= RedLSystem("+++F--F--F", ($F: "F--F--2F--GG", $G: "GG"));
+							t = RedLTurtle(l, length, theta, 1);
+							2 do:	{
+								l.next;
+							};
+							addr.sendMsg("/lsystem", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
+							theta = theta + 1.4;
+							0.7.wait;	
+							};
+						}.fork;
+					 )
+				}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
