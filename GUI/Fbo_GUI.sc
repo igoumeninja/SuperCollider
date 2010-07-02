@@ -41,6 +41,16 @@ Fbo_GUI	{
 		q = window.addFlowLayout( 10@10, 20@5 );
 		Button(window, Rect(20,20,300,20))
 				.states_([
+					["FBO enable", Color.black, Color.white],
+					["FBO disable", Color.white, Color.black],
+				])
+				.action_({ arg butt; 
+					addr.sendMsg("/fbo");
+					window.close;
+					Fbo_GUI.new}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
 					["FBO 0 enable", Color.black, Color.white],
 					["FBO 0 disable", Color.white, Color.black],
 				])
