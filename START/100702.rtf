@@ -1,0 +1,126 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red96\green96\blue96;\red0\green0\blue191;
+\red0\green115\blue0;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs18 \cf2 /*\
+100616 igoumeninja\
+Aris Bezas\
+\
+This is the rtf file to run - start the classes for the project\
+Try to built a sync module for sending beat\
+\
+control dur from Pattern \
+\
+\cf0 o.sendMsg(\cf3 "/deseo"\cf0 );\cf2 \
+*/\
+\
+\
+\cf4 SendAmpFreq\cf0 .start;\
+m = \cf4 Synth\cf0 (\cf5 \\SendAmpPitch\cf0 , [\cf5 \\chan\cf0 , 8, \cf5 \\ampTrig\cf0 , 1, \cf5 \\freqTrig\cf0 , 2]);\
+\cf4 Open_GUI\cf0 .new\
+Fbo_GUI.new\
+\
+\
+\
+\cf2 // Control Sync\cf0 \
+\cf2 //a = SyncSender(Pbind(\\syncEvent, Pseq(Pn(['/beats', 3), \\end], 1), \\dur, Pseq([0.1, 0.1, 4, 1])));\cf0 \
+a = \cf4 SyncSender\cf0 (\cf4 Pbind\cf0 (\cf5 \\event\cf0 , \cf5 '/beats'\cf0 ));\cf2 // simple SyncSender to view beat\cf0 \
+a = \cf4 SyncSender\cf0 (\cf4 Pbind\cf0 (\cf5 \\event\cf0 , \cf5 '/beats'\cf0 , \cf5 \\dur\cf0 , \cf4 Pseq\cf0 ([0.1, 0.1, 4, 1])));\cf2 // sync with durations\cf0 \
+\
+\
+a.clients = \cf4 NetAddr\cf0 (\cf3 "127.0.0.1"\cf0 , 12345);\
+a.clients = \cf4 NetAddr\cf0 (\cf3 "127.0.0.1"\cf0 , 57120);\
+\
+a.start;\
+a.stop;\
+a.clock.tempo = 50;\
+\cf2 //---------------------------------------\
+\cf0 \
+\
+\cf4 UnaCiudadSonada.new\cf0 \
+\cf4 Arbol_GUI\cf0 \
+\cf4 Sound_GUI\cf0 .new\
+\cf4 Main_GUI\cf0 .new\
+\cf4 SendAmpFreq\cf0 .start;\
+m = \cf4 Synth\cf0 (\cf5 \\SendAmpPitch\cf0 , [\cf5 \\chan\cf0 , 8, \cf5 \\ampTrig\cf0 , 1, \cf5 \\freqTrig\cf0 , 2]); \cf2 // \cf0 \
+m.free;\
+\
+\cf4 Sendmidi\cf0 .start;\
+\
+\cf2 //--  LSYSTEMS   ---------------------------------\cf0 \
+o = \cf4 NetAddr\cf0 (\cf3 "127.0.0.1"\cf0 , 12345);\
+s = \cf4 NetAddr\cf0 (\cf3 "127.0.0.1"\cf0 , 57120);\
+\
+\cf2 // draw LIne all over the window\cf0 \
+\
+(\
+o.sendMsg(\cf3 "/startEffect"\cf0 );\
+d = \{\
+	600 do:	\{\
+		o.sendMsg(\cf3 "/drawLine"\cf0 );\
+		s.sendMsg(\cf3 "/drawLine"\cf0 );\
+		0.01.wait;	\
+		\};\
+	\}.fork;\
+)\
+\
+\
+(\
+k = \{\
+	\cf4 var\cf0  	l,t;\
+	\cf4 var\cf0 	theta = 60;\
+	\cf4 var\cf0 	length = 13;\
+	\
+	500 do:	\{\
+\pard\pardeftab560\ql\qnatural
+\cf0 		l= \cf4 RedLSystem\cf0 (\cf3 "+++F--F--F"\cf0 , ($F: \cf3 "F--F--2F--GG"\cf0 , $G: \cf3 "GG"\cf0 ));\
+		t = \cf4 RedLTurtle\cf0 (l, length, theta, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 		4 do:	\{\
+			l.next;\
+		\};\
+		o.sendMsg(\cf3 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		s.sendMsg(\cf3 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		\cf2 //theta = Pseq([60, 61, 67, 60], inf).value.postln;\cf0 \
+		theta = theta - 0.09;\
+		\cf2 length = length - 0.06;\cf0 \
+		0.3.wait;	\
+		\};\
+	\}.fork;\
+ n)\
+k.stop;\
+//  KOLOFOTIES\
+(\
+k = \{\
+	\cf4 var\cf0  	l,t;\
+	\cf4 var\cf0 	theta = 10;\
+	\cf4 var\cf0 	length = 130;\
+	\
+	500 do:	\{\
+\pard\pardeftab560\ql\qnatural
+\cf0 		l= \cf4 RedLSystem\cf0 (\cf3 "+++F--F--F"\cf0 , ($F: \cf3 "F--F--2F--GG"\cf0 , $G: \cf3 "GG"\cf0 ));\
+		t = \cf4 RedLTurtle\cf0 (l, length, theta, 1);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 		3 do:	\{\
+			l.next;\
+		\};\
+		o.sendMsg(\cf3 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		s.sendMsg(\cf3 "/lsystem"\cf0 , l.asString, t.length, t.theta, t.scale, t.noise, l.generation);\
+		\cf2 //theta = Pseq([60, 61, 67, 60], inf).value.postln;\cf0 \
+		theta = theta + 1.3;\
+		//\cf2 length = length - 0.06;\cf0 \
+		0.1.wait;	\
+		\};\
+	\}.fork;\
+ )\
+\
+\cf2 //-----------------------------------------------------------\cf0 \
+\
+d = \cf4 FibDisplay\cf0 (oscMessage: \cf5 'l_branch'\cf0 );\
+d.show;\
+\cf4 Stasis\cf0 .start(local: \cf4 true\cf0 );\
+\cf4 Stasis\cf0 .start(\cf3 "AAB"\cf0 )\
+\cf4 Stasis\cf0 .stop\
+}

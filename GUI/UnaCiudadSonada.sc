@@ -43,6 +43,21 @@ UnaCiudadSonada	{
 		q = window.addFlowLayout( 10@10, 20@5 );
 		Button(window, Rect(20,20,300,20))
 				.states_([
+					["El Deseo", Color.black, Color.white],
+				])
+				.action_({ 
+				(
+					{
+						120 do:	{
+							addr.sendMsg("/deseo");
+							0.5.wait;	
+							};
+						}.fork;
+					)	
+				}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
 					["Linea Horizontal", Color.black, Color.white],
 				])
 				.action_({ 

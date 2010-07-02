@@ -31,7 +31,8 @@ Open_GUI	{
 		Sendmidi.start;
 		Sound_GUI.new;
 		Main_GUI.new;
-		UnaCiudadSonada.new;		
+		UnaCiudadSonada.new;	
+		Fbo_GUI.new	
 	}
 
 }
