@@ -3,6 +3,7 @@
 Aris Bezas
 
 Class to control GUI
+Open_GUI.new
 */
 
 
@@ -32,7 +33,8 @@ Open_GUI	{
 		Sound_GUI.new;
 		Main_GUI.new;
 		UnaCiudadSonada.new;	
-		Fbo_GUI.new	
+		Fbo_GUI.new;
+		Escenas_GUI.new				
 	}
 
 }

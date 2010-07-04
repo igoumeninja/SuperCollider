@@ -3,6 +3,8 @@
 Aris Bezas
 
 This class create the Graphical User Interface (GUI) for FBO
+
+Fbo_GUI.new
 */
 
 
@@ -51,169 +53,169 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 0 enable", Color.black, Color.white],
-					["FBO 0 disable", Color.white, Color.black],
+					["FBO 0 primero", Color.black, Color.white],
+					["FBO 0 primero", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo0")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 1 enable", Color.black, Color.white],
-					["FBO 1 disable", Color.white, Color.black],
+					["FBO 1 tejado casa izquierda", Color.black, Color.white],
+					["FBO 1 tejado casa izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo1")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 2 enable", Color.black, Color.white],
-					["FBO 2 disable", Color.white, Color.black],
+					["FBO 2 muro casa izquierda", Color.black, Color.white],
+					["FBO 2 muro casa izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo2")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 3 enable", Color.black, Color.white],
-					["FBO 3 disable", Color.white, Color.black],
+					["FBO 3 ventana casa izquierda", Color.black, Color.white],
+					["FBO 3 ventana casa izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo3")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 4 enable", Color.black, Color.white],
-					["FBO 4 disable", Color.white, Color.black],
+					["FBO 4 objeto casa izquierda", Color.black, Color.white],
+					["FBO 4 objeto casa izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo4")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 5 enable", Color.black, Color.white],
-					["FBO 5 disable", Color.white, Color.black],
+					["FBO 5 empty", Color.black, Color.white],
+					["FBO 5 empty", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo5")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 6 enable", Color.black, Color.white],
-					["FBO 6 disable", Color.white, Color.black],
+					["FBO 6 torre izquierda fonto", Color.black, Color.white],
+					["FBO 6 torre izquierda fonto", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo6")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 7 enable", Color.black, Color.white],
-					["FBO 7 disable", Color.white, Color.black],
+					["FBO 7 montanas", Color.black, Color.white],
+					["FBO 7 montanas", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo7")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 8 enable", Color.black, Color.white],
-					["FBO 8 disable", Color.white, Color.black],
+					["FBO 8 fonto izquierda", Color.black, Color.white],
+					["FBO 8 fonto izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo8")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 9 enable", Color.black, Color.white],
-					["FBO 9 disable", Color.white, Color.black],
+					["FBO 9 casa grande", Color.black, Color.white],
+					["FBO 9 casa grande", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo9")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 10 enable", Color.black, Color.white],
-					["FBO 10 disable", Color.white, Color.black],
+					["FBO 10 campanario", Color.black, Color.white],
+					["FBO 10 campanario", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo10")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 11 enable", Color.black, Color.white],
-					["FBO 11 disable", Color.white, Color.black],
+					["FBO 11 casa aqua", Color.black, Color.white],
+					["FBO 11 casa aqua", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo11")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 12 enable", Color.black, Color.white],
-					["FBO 12 disable", Color.white, Color.black],
+					["FBO 12 casa derecha", Color.black, Color.white],
+					["FBO 12 casa derecha", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo12")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 13 enable", Color.black, Color.white],
-					["FBO 13 disable", Color.white, Color.black],
+					["FBO 13 perfil derecha", Color.black, Color.white],
+					["FBO 13 perfil derecha", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo13")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 14 enable", Color.black, Color.white],
-					["FBO 14 disable", Color.white, Color.black],
+					["FBO 14 cohete", Color.black, Color.white],
+					["FBO 14 cohete", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo14")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 15 enable", Color.black, Color.white],
-					["FBO 15 disable", Color.white, Color.black],
+					["FBO 15 muro de la casa alta", Color.black, Color.white],
+					["FBO 15 muro de la casa alta", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo15")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 16 enable", Color.black, Color.white],
-					["FBO 16 disable", Color.white, Color.black],
+					["FBO 16 ventana de la casa alta", Color.black, Color.white],
+					["FBO 16 ventana de la casa alta", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo16")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 17 enable", Color.black, Color.white],
-					["FBO 17 disable", Color.white, Color.black],
+					["FBO 17 tejado de la casa alta", Color.black, Color.white],
+					["FBO 17 tejado de la casa alta", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo17")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 18 enable", Color.black, Color.white],
-					["FBO 18 disable", Color.white, Color.black],
+					["FBO 18 muro frontal del bar", Color.black, Color.white],
+					["FBO 18 muro frontal del bar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo18")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 19 enable", Color.black, Color.white],
-					["FBO 19 disable", Color.white, Color.black],
+					["FBO 19 muro lateral del bar", Color.black, Color.white],
+					["FBO 19 muro lateral del bar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo19")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 20 enable", Color.black, Color.white],
-					["FBO 20 disable", Color.white, Color.black],
+					["FBO 20 objeto derecha", Color.black, Color.white],
+					["FBO 20 objeto derecha", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo20")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 21 enable", Color.black, Color.white],
-					["FBO 21 disable", Color.white, Color.black],
+					["FBO 21 muro del casita del pilar", Color.black, Color.white],
+					["FBO 21 muro del casita del pilar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo21")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 22 enable", Color.black, Color.white],
-					["FBO 22 disable", Color.white, Color.black],
+					["FBO 22 cajita de la casa de pilar", Color.black, Color.white],
+					["FBO 22 cajita de la casa de pilar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo22")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 23 enable", Color.black, Color.white],
-					["FBO 23 disable", Color.white, Color.black],
+					["FBO 23 tejados de la casa de pillar", Color.black, Color.white],
+					["FBO 23 tejados de la casa de pillar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo23")}
 		);
