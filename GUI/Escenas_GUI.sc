@@ -48,11 +48,8 @@ Escenas_GUI	{
 					["Escena 0 Catastrofe", Color.white, Color.black],
 				])
 				.action_({  
-					addr.sendMsg("/midi8", 55);	
-					addr.sendMsg("/midi88", 0);
-					addr.sendMsg("/midi96", 0);
-					addr.sendMsg("/midi104", 0);
-					addr.sendMsg("/fbo0");
+					addr.sendMsg("/background", 0,0,0);
+					addr.sendMsg("/fbo0", 1);
 				}
 		);
 		//back ecrem poco poco fbo7 4sec -(3sec)> fbo6 3sec -(sec)> fbo8 2sec
@@ -63,11 +60,16 @@ Escenas_GUI	{
 				])
 				.action_({  					
 					(
-						{var a8 = 0, r8 = 0, g8 = 0, b8 = 0, afbo7 = 0;
+						{var a8 = 0, r8 = 0, g8 = 0, b8 = 0, afbo6 = 0, afbo7 = 0, afbo8 = 0;
 						// initial values
+						     addr.sendMsg("/fbo6", 0);
+						     addr.sendMsg("/fbo7", 0);
+						     addr.sendMsg("/fbo8", 0);
 							addr.sendMsg("/background", 0, 0, 0);
 							addr.sendMsg("/a8", 10);
-						// hacer ecrem el background
+							addr.sendMsg("/afbo6", 0.1);
+							addr.sendMsg("/afbo7", 0.1);
+							addr.sendMsg("/afbo8", 0.1);						// hacer ecrem el background
 						50 do:	{	
 							r8 = (r8 + 4.8);									g8 = (g8 + 4.36);									b8 = (b8 + 2.66);		
 							addr.sendMsg("/r8", r8);
@@ -76,12 +78,46 @@ Escenas_GUI	{
 							0.2.wait;	
 							};
 						addr.sendMsg("/a8", 0);	
-						3.wait;					
-						addr.sendMsg("/fbo7");
 						3.wait;
-						addr.sendMsg("/fbo6");								3.wait;				
-						addr.sendMsg("/fbo8");		
+						// afbo7
+						addr.sendMsg("/fbo7", 1);							80 do:	{	
+							afbo7 = (afbo7 + 0.36);
+							addr.sendMsg("/afbo7", afbo7);
+							0.1.wait;	
+							};					
+						3.wait;
+						// afbo6
+						addr.sendMsg("/fbo6", 1);	
+						80 do:	{	
+							afbo6 = (afbo6 + 0.36);
+							addr.sendMsg("/afbo6", afbo6);
+							0.1.wait;	
+							};					
+						3.wait;				
+						// afbo8
+						addr.sendMsg("/fbo8", 1);	
+						80 do:	{	
+							afbo8 = (afbo8 + 0.36);
+							addr.sendMsg("/afbo8", afbo8);
+							0.1.wait;	
+							};					
 						}.fork;										)											}
 		);
+		
+		// haleo en la escena
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Haleo", Color.black, Color.white],
+					["Para el Haleo", Color.white, Color.black],
+				])
+				.action_({  
+					arg butt;
+					if ( butt == 0, 
+						{
+						addr.sendMsg("/fbo");
+						}
+						);
+				}
+		);		
 	}
 }
