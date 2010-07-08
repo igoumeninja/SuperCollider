@@ -4,7 +4,9 @@ Aris Bezas
 
 This class create the Graphical User Interface (GUI) for FBO
 Open_GUI.new
+Fbo_GUI.new
 Escenas_GUI.new
+
 SendMidi
 */
 
@@ -16,6 +18,7 @@ Escenas_GUI	{
 	var	<a;
 	var	<q;		
 	var 	window;
+	var 	t;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -42,17 +45,31 @@ Escenas_GUI	{
 		window.view.background_(Color.new255(22,75,27));
 		window.bounds_(Rect(990,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
+		//Chan Ti Chan
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 00 Chan Ti Chan", Color.black, Color.white],
+					["Escena 00 Chan Ti Chan", Color.white, Color.black],
+				])
+				.action_({  
+				addr.sendMsg("/fbo");				
+				addr.sendMsg("/background", 0,0,0);
+				addr.sendMsg("/fbo0", 1);
+				addr.sendMsg("/viewChanTiChanTRUE");
+				}
+		);
+		//Catastrofe
 		Button(window, Rect(20,20,300,20))
 				.states_([
 					["Escena 0 Catastrofe", Color.black, Color.white],
 					["Escena 0 Catastrofe", Color.white, Color.black],
 				])
 				.action_({  
-					addr.sendMsg("/background", 0,0,0);
-					addr.sendMsg("/fbo0", 1);
+				addr.sendMsg("/viewChanTiChanFALSE");
+				addr.sendMsg("/viewCiudadDestruidaTRUE");
 				}
 		);
-		//back ecrem poco poco fbo7 4sec -(3sec)> fbo6 3sec -(sec)> fbo8 2sec
+		//Entrada del Oso
 		Button(window, Rect(20,20,300,20))
 				.states_([
 					["Escena 1 Entrada del Oso", Color.black, Color.white],
@@ -60,25 +77,16 @@ Escenas_GUI	{
 				])
 				.action_({  					
 					(
-						{var a8 = 0, r8 = 0, g8 = 0, b8 = 0, afbo6 = 0, afbo7 = 0, afbo8 = 0;
+						{	var a8=0,r8=0,g8=0,b8=0,afbo6=0,afbo7=0,afbo8=0,afbo123=0,afbo15_17=0,afbo21_23=0;	
 						// initial values
-						     addr.sendMsg("/fbo6", 0);
-						     addr.sendMsg("/fbo7", 0);
-						     addr.sendMsg("/fbo8", 0);
-							addr.sendMsg("/background", 0, 0, 0);
-							addr.sendMsg("/a8", 10);
-							addr.sendMsg("/afbo6", 0.1);
-							addr.sendMsg("/afbo7", 0.1);
-							addr.sendMsg("/afbo8", 0.1);						// hacer ecrem el background
-						50 do:	{	
-							r8 = (r8 + 4.8);									g8 = (g8 + 4.36);									b8 = (b8 + 2.66);		
-							addr.sendMsg("/r8", r8);
-							addr.sendMsg("/g8", g8);
-							addr.sendMsg("/b8", b8);
-							0.2.wait;	
-							};
-						addr.sendMsg("/a8", 0);	
-						3.wait;
+						addr.sendMsg("/fbo6", 0);
+						addr.sendMsg("/fbo7", 0);
+						addr.sendMsg("/fbo8", 0);
+						addr.sendMsg("/background", 0, 0, 0);
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/afbo6", 0.1);
+						addr.sendMsg("/afbo7", 0.1);
+						addr.sendMsg("/afbo8", 0.1);						addr.sendMsg("/a8", 0);	
 						// afbo7
 						addr.sendMsg("/fbo7", 1);							80 do:	{	
 							afbo7 = (afbo7 + 0.36);
@@ -100,9 +108,209 @@ Escenas_GUI	{
 							afbo8 = (afbo8 + 0.36);
 							addr.sendMsg("/afbo8", afbo8);
 							0.1.wait;	
-							};					
-						}.fork;										)											}
+						};
+						5.wait;
+						// 1,2,3
+						addr.sendMsg("/fbo1", 1);	
+						addr.sendMsg("/fbo2", 1);	
+						//addr.sendMsg("/fbo3", 1);	
+						80 do:	{	
+							afbo123 = (afbo123 + 0.36);
+							addr.sendMsg("/afbo123", afbo123);
+							0.1.wait;				
+						};
+						5.wait;
+						// 15, 17
+						addr.sendMsg("/afbo15_17", 0);
+						addr.sendMsg("/fbo15", 1);
+						addr.sendMsg("/fbo17", 1);
+						//addr.sendMsg("/fbo16", 1);
+						80 do:	{	
+							afbo15_17 = (afbo15_17 + 0.36);
+							addr.sendMsg("/afbo15_17", afbo15_17);
+							0.1.wait;				
+						};
+						5.wait;
+						// 21, 23
+						addr.sendMsg("/afbo21_23", 0);
+						addr.sendMsg("/fbo21", 1);
+						addr.sendMsg("/fbo23", 1);
+						//addr.sendMsg("/fbo16", 1);
+						80 do:	{	
+							afbo21_23 = (afbo21_23 + 0.36);
+							addr.sendMsg("/afbo21_23", afbo21_23);
+							0.1.wait;				
+						};
+
+						}.fork;
+																)											}
 		);
+		// Que se pelea
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 2 Que se Pelean", Color.black, Color.white],
+					["Escena 2 Que se Pelean", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+						addr.sendMsg("/fbo6",1);
+						addr.sendMsg("/fbo21",1);
+						addr.sendMsg("/fbo13",1);
+						addr.sendMsg("/fbo14",1);
+						addr.sendMsg("/fbo2",1);
+						20 do:	{
+						addr.sendMsg("/viewFlores6TRUE");
+						0.5.wait;
+						addr.sendMsg("/viewFlores6FALSE");						0.1.wait;					
+						addr.sendMsg("/viewFlores21TRUE");
+						0.5.wait;					
+						addr.sendMsg("/viewFlores21FALSE");
+						0.1.wait;					
+						addr.sendMsg("/viewFlores13TRUE");
+						0.5.wait;					
+						addr.sendMsg("/viewFlores13FALSE");
+						0.1.wait;
+						addr.sendMsg("/viewFlores6TRUE");
+						0.5.wait;
+						addr.sendMsg("/viewFlores6FALSE");
+						0.1.wait;
+						addr.sendMsg("/viewFlores14TRUE");
+						0.5.wait;
+						addr.sendMsg("/viewFlores14FALSE");
+						0.1.wait;
+						addr.sendMsg("/viewFlores2TRUE");
+						0.5.wait;
+						addr.sendMsg("/viewFlores2FALSE");
+						};
+						}.fork;
+																)											}
+		);
+		// Los dos hablan
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 3 Los dos hablan", Color.black, Color.white],
+					["Escena 3 Los dos hablan", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+						addr.sendMsg("/fbo4",1);
+						addr.sendMsg("/fbo20",1);
+						addr.sendMsg("/fbo22",1);
+						addr.sendMsg("/viewRaton4TRUE");
+						1.wait;					
+						addr.sendMsg("/viewRaton20TRUE");
+						1.wait;
+						addr.sendMsg("/viewRaton22TRUE");
+						2.wait;	
+						addr.sendMsg("/viewRaton4FALSE");
+						addr.sendMsg("/viewRaton20FALSE");
+						addr.sendMsg("/viewRaton22FALSE");
+						addr.sendMsg("/viewLadrillo4TRUE");
+						addr.sendMsg("/viewLadrillo20TRUE");
+						addr.sendMsg("/viewLadrillo22TRUE");
+						3.wait;
+						addr.sendMsg("/viewCiudadDestruidaFALSE");
+						addr.sendMsg("/viewCiudadDestruidaConLluviaTRUE");
+
+						}.fork;
+																)											}
+		);
+		// El bals del oso
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 4 El Bals del Oso", Color.black, Color.white],
+					["Escena 4 El Bals del Oso", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 	
+						// initial values
+						addr.sendMsg("/fbo");
+						addr.sendMsg("/a8", 0);
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", 0.4);
+						5.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						2.wait;
+						addr.sendMsg("/a8", 0);
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						
+						20 do:	{
+						addr.sendMsg("/mariposa");
+						0.3.wait;
+						};
+						
+						t = Task({
+						inf do:	{
+						addr.sendMsg("/mariposa");
+						0.1.wait;
+						};
+						});
+						t.start
+						
+						
+						
+						//addr.sendMsg("/background", 0, 0, 0);
+
+						}.fork;
+																)											}
+		);
+		//	Solo de Chang Ti Chan
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 5 Solo de Chang Ti Chan", Color.black, Color.white],
+					["Escena 5 Solo de Chang Ti Chan", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+						t.stop;
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", 0.4);
+						2.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);								addr.sendMsg("/feedbackSpeedY", 0.8);
+						2.wait;
+						addr.sendMsg("/feedbackSpeedY", 0.2);
+						
+						
+						}.fork;
+																)											}
+		);
+		//	Construllen el bar
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 6 Construllen el bar", Color.black, Color.white],
+					["Escena 6 Construllen el bar", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+
+
+						}.fork;
+																)											}
+		);
+		
 		
 		// haleo en la escena
 		Button(window, Rect(20,20,300,20))
