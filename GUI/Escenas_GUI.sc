@@ -18,7 +18,7 @@ Escenas_GUI	{
 	var	<a;
 	var	<q;		
 	var 	window;
-	var 	t;
+	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -134,6 +134,8 @@ Escenas_GUI	{
 						// 21, 23
 						addr.sendMsg("/afbo21_23", 0);
 						addr.sendMsg("/fbo21", 1);
+						addr.sendMsg("/viewVentanaRotaTRUE");
+						
 						addr.sendMsg("/fbo23", 1);
 						//addr.sendMsg("/fbo16", 1);
 						80 do:	{	
@@ -254,13 +256,13 @@ Escenas_GUI	{
 						0.3.wait;
 						};
 						
-						t = Task({
+						balsOso = Task({
 						inf do:	{
 						addr.sendMsg("/mariposa");
 						0.1.wait;
 						};
 						});
-						t.start
+						balsOso.start
 						
 						
 						
@@ -279,7 +281,7 @@ Escenas_GUI	{
 					(
 						{	
 						// initial values
-						t.stop;
+						balsOso.stop;
 						addr.sendMsg("/feedbackView",1);
 						addr.sendMsg("/timeLine",1);
 						addr.sendMsg("/feedbackSpeedY", 0.4);
@@ -287,11 +289,19 @@ Escenas_GUI	{
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
-						addr.sendMsg("/b8", 0);								addr.sendMsg("/feedbackSpeedY", 0.8);
+						addr.sendMsg("/b8", 0);		
+						addr.sendMsg("/feedbackSpeedY", 0.8);
 						2.wait;
 						addr.sendMsg("/feedbackSpeedY", 0.2);
 						
-						
+						soloChan = Task({
+						inf do:	{
+						addr.sendMsg("/soloChanTiChanTRUE",1000.rand, 1000.rand);
+						3.rand.wait;
+						};
+						});
+						soloChan.start;
+
 						}.fork;
 																)											}
 		);
@@ -305,13 +315,118 @@ Escenas_GUI	{
 					(
 						{	
 						// initial values
+						soloChan.stop;
+						2.wait;
+						addr.sendMsg("/soloChanTiChanFALSE");
+						
+						arbols = Task({
+						inf do:	{
+						addr.sendMsg("/arbol");
+						0.1.wait;
+						};
+						});
+						arbols.start;
 
 
 						}.fork;
 																)											}
 		);
+		//	Aparece el horno
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 7 Aparece el horno", Color.black, Color.white],
+					["Escena 7 Aparece el horno", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ var afbo21_23;
+						// initial values
+						arbols.stop;	
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						addr.sendMsg("/afbo21_23", 0);
+						addr.sendMsg("/viewVentanaRotaFALSE");
+						addr.sendMsg("/viewChimaneaTRUE");						
+						80 do:	{	
+							afbo21_23 = (afbo21_23 + 0.36);
+							addr.sendMsg("/afbo21_23", afbo21_23);
+							0.1.wait;				
+						};
+						}.fork;
+																)											}
+		);
+		//	Entra la limpiadora
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 8 Entra la limpiadora", Color.black, Color.white],
+					["Escena 8 Entra la limpiadora", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						burbujas = Task({
+						inf do:	{
+						addr.sendMsg("/burbujas");
+						0.1.wait;
+						};
+						});
+						burbujas.start;
+						}.fork;
+																)											}
+		);
 		
+		// TENGO QUE PARAR LAS BURBUJAS
 		
+		//	Golondrinas
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena Golondrinas", Color.black, Color.white],
+					["Escena Golondrinas", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						
+						var 	l,t;
+						var	theta = 13;
+						var	length = 130;
+						golondrinasTask = Task({
+							inf do:	{
+								l= RedLSystem("+++F--F--F", ($F: "F--F--2F--GG", $G: "GG"));
+								t = RedLTurtle(l, length, theta, 1);
+								2 do:	{
+									l.next;
+								};
+							
+						addr.sendMsg("/golondrinas", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
+						theta = theta + 1.4;
+						0.7.wait;	
+						
+						};
+						});	
+						golondrinasTask.start;					
+						}.fork;
+																)											}
+		);
+		
+		//	Para las golondrinas
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 9 Para las colondrinas", Color.black, Color.white],
+					["Escena 9 Para las colondrinas", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						golondrinasTask.stop;
+						}.fork;
+																)											}
+		);
+
 		// haleo en la escena
 		Button(window, Rect(20,20,300,20))
 				.states_([

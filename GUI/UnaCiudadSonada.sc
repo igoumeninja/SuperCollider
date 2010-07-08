@@ -117,6 +117,31 @@ UnaCiudadSonada	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
+					["arbolLsystem", Color.black, Color.white],
+				])
+				.action_({
+				(
+					{
+						var 	l,t;
+						var	theta = 13;
+						var	length = 130;
+						
+						500 do:	{
+							l= RedLSystem("+++F--F--F", ($F: "F--F--2F--GG", $G: "GG"));
+							t = RedLTurtle(l, length, theta, 1);
+							2 do:	{
+								l.next;
+							};
+							addr.sendMsg("/arbolLsystem", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
+							theta = theta + 1.4;
+							0.7.wait;	
+							};
+						}.fork;
+					 )
+				}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
 					["view arbol", Color.black, Color.white],
 					["stop arbol", Color.white, Color.black],
 				])
