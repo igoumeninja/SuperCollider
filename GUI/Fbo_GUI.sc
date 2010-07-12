@@ -5,6 +5,7 @@ Aris Bezas
 This class create the Graphical User Interface (GUI) for FBO
 Escenas_GUI
 Fbo_GUI.new
+Open_GUI.new
 */
 
 
@@ -221,15 +222,15 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 24 enable", Color.black, Color.white],
-					["FBO 24 disable", Color.white, Color.black],
+					["FBO 24 cielo", Color.black, Color.white],
+					["FBO 24 cielo", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo24", butt.value)}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 25 enable", Color.black, Color.white],
-					["FBO 25 disable", Color.white, Color.black],
+					["FBO 25 mini ciudad", Color.black, Color.white],
+					["FBO 25 mini ciudad", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo25", butt.value)}
 		);

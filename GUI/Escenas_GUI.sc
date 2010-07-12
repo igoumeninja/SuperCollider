@@ -198,7 +198,7 @@ Escenas_GUI	{
 				.action_({  					
 					(
 						{	
-						// initial values
+						// initial values						
 						addr.sendMsg("/fbo4",1);
 						addr.sendMsg("/fbo20",1);
 						addr.sendMsg("/fbo22",1);
@@ -293,10 +293,15 @@ Escenas_GUI	{
 						addr.sendMsg("/feedbackSpeedY", 0.8);
 						2.wait;
 						addr.sendMsg("/feedbackSpeedY", 0.2);
-						
+						addr.sendMsg("/a8", 2);
 						soloChan = Task({
 						inf do:	{
-						addr.sendMsg("/soloChanTiChanTRUE",1000.rand, 1000.rand);
+						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
+						addr.sendMsg("/r7", 255.rand);
+						addr.sendMsg("/g7", 255.rand);
+						addr.sendMsg("/b7", 255.rand);
+								
+
 						3.rand.wait;
 						};
 						});
@@ -322,6 +327,7 @@ Escenas_GUI	{
 						arbols = Task({
 						inf do:	{
 						addr.sendMsg("/arbol");
+						
 						0.1.wait;
 						};
 						});
@@ -339,21 +345,25 @@ Escenas_GUI	{
 				])
 				.action_({  					
 					(
-						{ var afbo21_23;
+						{ 
 						// initial values
-						arbols.stop;	
+						//arbols.stop;	
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
 						addr.sendMsg("/b8", 0);
-						addr.sendMsg("/afbo21_23", 0);
+						
+						//addr.sendMsg("/afbo21_23", 0);
 						addr.sendMsg("/viewVentanaRotaFALSE");
-						addr.sendMsg("/viewChimaneaTRUE");						
-						80 do:	{	
-							afbo21_23 = (afbo21_23 + 0.36);
-							addr.sendMsg("/afbo21_23", afbo21_23);
-							0.1.wait;				
-						};
+						addr.sendMsg("/viewChimaneaTRUE");
+						
+						addr.sendMsg("/fbo23", 1);
+						//addr.sendMsg("/fbo16", 1);
+//						80 do:	{	
+//							afbo21_23 = (afbo21_23 + 0.36);
+//							addr.sendMsg("/afbo21_23", afbo21_23);
+//							0.1.wait;				
+//						};
 						}.fork;
 																)											}
 		);
@@ -392,7 +402,7 @@ Escenas_GUI	{
 						// initial values
 						
 						var 	l,t;
-						var	theta = 13;
+						var	theta = 90;
 						var	length = 130;
 						golondrinasTask = Task({
 							inf do:	{

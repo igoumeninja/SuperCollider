@@ -3,6 +3,7 @@
 Aris Bezas
 
 Open_GUI.new
+UnaCiudadSonada.new
 
 This class create the Graphical User Interface (GUI) for arbol interaction.
 */
@@ -38,11 +39,45 @@ UnaCiudadSonada	{
 	}
 	
 	unaCiudadSonadaGUI	{
+		var soloChan;
 		window = SCWindow("Una Ciudad Sonada GUI");
 		window.front;
 		window.view.background_(Color.new255(22,75,27));
 		window.bounds_(Rect(660,0,330,580));
 		q = window.addFlowLayout( 10@10, 20@5 );
+				Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena 5 Solo de Chang Ti Chan", Color.black, Color.white],
+					["Escena 5 Solo de Chang Ti Chan", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+						2.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);		
+						2.wait;
+						addr.sendMsg("/a8", 0);
+						soloChan = Task({
+						inf do:	{
+						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
+						addr.sendMsg("/r7", 255.rand);
+						addr.sendMsg("/g7", 255.rand);
+						addr.sendMsg("/b7", 255.rand);
+								
+
+						3.rand.wait;
+						};
+						});
+						soloChan.start;
+
+						}.fork;
+																)											}
+		);
+
 		Button(window, Rect(20,20,300,20))
 				.states_([
 					["El Deseo", Color.black, Color.white],
