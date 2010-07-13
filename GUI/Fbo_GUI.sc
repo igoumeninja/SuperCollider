@@ -54,6 +54,13 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
+					["FBO default", Color.black, Color.white],
+					["FBO default", Color.white, Color.black],
+				])
+				.action_({ arg butt; addr.sendMsg("/defaultFBO", butt.value)}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
 					["FBO 0 primero", Color.black, Color.white],
 					["FBO 0 primero", Color.white, Color.black],
 				])

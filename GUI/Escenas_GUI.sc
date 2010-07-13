@@ -82,7 +82,9 @@ Escenas_GUI	{
 						addr.sendMsg("/fbo6", 0);
 						addr.sendMsg("/fbo7", 0);
 						addr.sendMsg("/fbo8", 0);
-						addr.sendMsg("/background", 0, 0, 0);
+						addr.sendMsg("/viewMontanasTRUE", 1);
+						addr.sendMsg("/viewMontanasBlancasTRUE", 1);
+						addr.sendMsg("/viewMontanasRojasTRUE", 1);						addr.sendMsg("/background", 0, 0, 0);
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/afbo6", 0.1);
 						addr.sendMsg("/afbo7", 0.1);
