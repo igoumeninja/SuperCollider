@@ -43,7 +43,7 @@ UnaCiudadSonada	{
 		window = SCWindow("Una Ciudad Sonada GUI");
 		window.front;
 		window.view.background_(Color.new255(22,75,27));
-		window.bounds_(Rect(660,0,330,580));
+		window.bounds_(Rect(660,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
 				Button(window, Rect(20,20,300,20))
 				.states_([

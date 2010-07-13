@@ -40,7 +40,7 @@ Fbo_GUI	{
 		window = SCWindow("Frame Buffer Objects");
 		window.front;
 		window.view.background_(Color.new255(22,75,27));
-		window.bounds_(Rect(990,0,330,880));
+		window.bounds_(Rect(330,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
 		Button(window, Rect(20,20,300,20))
 				.states_([
@@ -54,10 +54,21 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO default", Color.black, Color.white],
-					["FBO default", Color.white, Color.black],
+					["All FBO TRUE", Color.black, Color.white],
 				])
-				.action_({ arg butt; addr.sendMsg("/defaultFBO", butt.value)}
+				.action_({ arg butt; addr.sendMsg("/allFboTrue")}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["FBO default TRUE", Color.black, Color.white],
+				])
+				.action_({ arg butt; addr.sendMsg("/defaultFBOTRUE")}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["FBO default FALSE", Color.black, Color.white],
+				])
+				.action_({ arg butt; addr.sendMsg("/defaultFBOFALSE")}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([

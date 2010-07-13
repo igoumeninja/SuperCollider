@@ -18,7 +18,7 @@ Escenas_GUI	{
 	var	<a;
 	var	<q;		
 	var 	window;
-	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas;
+	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas, sketchCasas;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -43,13 +43,13 @@ Escenas_GUI	{
 		window = SCWindow("Escenas");
 		window.front;
 		window.view.background_(Color.new255(22,75,27));
-		window.bounds_(Rect(990,0,330,880));
+		window.bounds_(Rect(0,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
 		//Chan Ti Chan
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 00 Chan Ti Chan", Color.black, Color.white],
-					["Escena 00 Chan Ti Chan", Color.white, Color.black],
+					["Chan Ti Chan se caen", Color.black, Color.white],
+					["Chan Ti Chan se caen", Color.white, Color.black],
 				])
 				.action_({  
 				addr.sendMsg("/fbo");				
@@ -61,8 +61,8 @@ Escenas_GUI	{
 		//Catastrofe
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 0 Catastrofe", Color.black, Color.white],
-					["Escena 0 Catastrofe", Color.white, Color.black],
+					["Video de Catastrofe", Color.black, Color.white],
+					["Video de Catastrofe", Color.white, Color.black],
 				])
 				.action_({  
 				addr.sendMsg("/viewChanTiChanFALSE");
@@ -72,8 +72,8 @@ Escenas_GUI	{
 		//Entrada del Oso
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 1 Entrada del Oso", Color.black, Color.white],
-					["Escena 1 Entrada del Oso", Color.white, Color.black],
+					["Entrada del Oso", Color.black, Color.white],
+					["Entrada del Oso", Color.white, Color.black],
 				])
 				.action_({  					
 					(
@@ -111,34 +111,28 @@ Escenas_GUI	{
 							addr.sendMsg("/afbo8", afbo8);
 							0.1.wait;	
 						};
-						5.wait;
-						// 1,2,3
-						addr.sendMsg("/fbo1", 1);	
-						addr.sendMsg("/fbo2", 1);	
-						//addr.sendMsg("/fbo3", 1);	
-						80 do:	{	
-							afbo123 = (afbo123 + 0.36);
-							addr.sendMsg("/afbo123", afbo123);
-							0.1.wait;				
-						};
-						5.wait;
-						// 15, 17
-						addr.sendMsg("/afbo15_17", 0);
-						addr.sendMsg("/fbo15", 1);
-						addr.sendMsg("/fbo17", 1);
-						//addr.sendMsg("/fbo16", 1);
-						80 do:	{	
-							afbo15_17 = (afbo15_17 + 0.36);
-							addr.sendMsg("/afbo15_17", afbo15_17);
-							0.1.wait;				
-						};
-						5.wait;
+
+						}.fork;
+																)											}
+		);
+		//La Oso Construllen la casa
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["El Oso construllen la casa Derecha", Color.black, Color.white],
+					["El Oso construllen la casa Derecha", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	var afbo21_23=0;	
+						// initial values
 						// 21, 23
 						addr.sendMsg("/afbo21_23", 0);
 						addr.sendMsg("/fbo21", 1);
-						addr.sendMsg("/viewVentanaRotaTRUE");
-						
 						addr.sendMsg("/fbo23", 1);
+						
+						addr.sendMsg("/viewVentanaRotaTRUE");
+						addr.sendMsg("/viewtejadosCasaDerechaTRUE");						
+						
 						//addr.sendMsg("/fbo16", 1);
 						80 do:	{	
 							afbo21_23 = (afbo21_23 + 0.36);
@@ -149,11 +143,44 @@ Escenas_GUI	{
 						}.fork;
 																)											}
 		);
+		//La Oso Construllen la casa Izquierda
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["El Oso construllen la casa Izquierda", Color.black, Color.white],
+					["El Oso construllen la casa Iquierda", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	var afbo123=0, afbo15_17 = 0;	
+						// initial values
+						// 1,2,3
+						addr.sendMsg("/fbo1", 1);	
+						addr.sendMsg("/fbo2", 1);	
+						80 do:	{	
+							afbo123 = (afbo123 + 0.36);
+							addr.sendMsg("/afbo123", afbo123);
+							0.1.wait;				
+						};
+						5.wait;
+						// 15, 17
+						addr.sendMsg("/afbo15_17", 0);
+						addr.sendMsg("/fbo15", 1);
+						addr.sendMsg("/fbo17", 1);
+						80 do:	{	
+							afbo15_17 = (afbo15_17 + 0.36);
+							addr.sendMsg("/afbo15_17", afbo15_17);
+							0.1.wait;				
+						};
+						5.wait;
+
+						}.fork;
+																)											}
+		);
 		// Que se pelea
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 2 Que se Pelean", Color.black, Color.white],
-					["Escena 2 Que se Pelean", Color.white, Color.black],
+					["Que se Pelean", Color.black, Color.white],
+					["Que se Pelean", Color.white, Color.black],
 				])
 				.action_({  					
 					(
@@ -424,6 +451,37 @@ Escenas_GUI	{
 						}.fork;
 																)											}
 		);
+		//	sKeTch at casas 9, 10, 11, 12
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena sKeTch Casas", Color.black, Color.white],
+					["Escena sKeTch Casas", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/fbo9", 1);
+						addr.sendMsg("/fbo10", 1);
+						addr.sendMsg("/fbo11", 1);
+						addr.sendMsg("/fbo12", 1);
+						addr.sendMsg("/viewSketchCasasTRUE", 1);						
+//						sketchCasas = Task({
+//						inf do:	{
+//						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
+//						addr.sendMsg("/r7", 255.rand);
+//						addr.sendMsg("/g7", 255.rand);
+//						addr.sendMsg("/b7", 255.rand);
+								
+
+//						3.rand.wait;
+//						};
+//						});
+//						sketchCasas.start;
+			
+						}.fork;
+																)											}
+		);
 		
 		//	Para las golondrinas
 		Button(window, Rect(20,20,300,20))
@@ -437,6 +495,31 @@ Escenas_GUI	{
 						golondrinasTask.stop;
 						}.fork;
 																)											}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["luciernagas", Color.black, Color.white],
+				])
+				.action_({
+				(
+					{
+						var 	l,t;
+						var	theta = 13;
+						var	length = 130;
+						
+						500 do:	{
+							l= RedLSystem("+++F--F--F", ($F: "F--F--2F--GG", $G: "GG"));
+							t = RedLTurtle(l, length, theta, 1);
+							2 do:	{
+								l.next;
+							};
+							addr.sendMsg("/lsystem", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
+							theta = theta + 1.4;
+							0.7.wait;	
+							};
+						}.fork;
+					 )
+				}
 		);
 
 		// haleo en la escena

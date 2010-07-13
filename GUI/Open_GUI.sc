@@ -30,8 +30,8 @@ Open_GUI	{
 	// start initialize	
 	init {
 		Sendmidi.start;
-		Sound_GUI.new;
-		Main_GUI.new;
+		//Sound_GUI.new;
+		//Main_GUI.new;
 		UnaCiudadSonada.new;	
 		Fbo_GUI.new;
 		Escenas_GUI.new				
