@@ -18,7 +18,7 @@ Escenas_GUI	{
 	var	<a;
 	var	<q;		
 	var 	window;
-	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas, sketchCasas;
+	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas, sketchCasas, floresCambian;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -156,23 +156,13 @@ Escenas_GUI	{
 						// 1,2,3
 						addr.sendMsg("/fbo1", 1);	
 						addr.sendMsg("/fbo2", 1);	
+						addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
+						addr.sendMsg("/viewTejadoCasaIzquierdaTRUE");						
 						80 do:	{	
 							afbo123 = (afbo123 + 0.36);
 							addr.sendMsg("/afbo123", afbo123);
 							0.1.wait;				
 						};
-						5.wait;
-						// 15, 17
-						addr.sendMsg("/afbo15_17", 0);
-						addr.sendMsg("/fbo15", 1);
-						addr.sendMsg("/fbo17", 1);
-						80 do:	{	
-							afbo15_17 = (afbo15_17 + 0.36);
-							addr.sendMsg("/afbo15_17", afbo15_17);
-							0.1.wait;				
-						};
-						5.wait;
-
 						}.fork;
 																)											}
 		);
@@ -186,75 +176,86 @@ Escenas_GUI	{
 					(
 						{	
 						// initial values
-						addr.sendMsg("/fbo6",1);
-						addr.sendMsg("/fbo21",1);
 						addr.sendMsg("/fbo13",1);
 						addr.sendMsg("/fbo14",1);
-						addr.sendMsg("/fbo2",1);
-						20 do:	{
+						floresCambian = Task({
+						inf do:	{
 						addr.sendMsg("/viewFlores6TRUE");
-						0.5.wait;
-						addr.sendMsg("/viewFlores6FALSE");						0.1.wait;					
 						addr.sendMsg("/viewFlores21TRUE");
-						0.5.wait;					
-						addr.sendMsg("/viewFlores21FALSE");
-						0.1.wait;					
-						addr.sendMsg("/viewFlores13TRUE");
-						0.5.wait;					
-						addr.sendMsg("/viewFlores13FALSE");
-						0.1.wait;
-						addr.sendMsg("/viewFlores6TRUE");
-						0.5.wait;
-						addr.sendMsg("/viewFlores6FALSE");
-						0.1.wait;
-						addr.sendMsg("/viewFlores14TRUE");
-						0.5.wait;
-						addr.sendMsg("/viewFlores14FALSE");
-						0.1.wait;
+						//addr.sendMsg("/viewFlores13TRUE");						addr.sendMsg("/viewFlores6TRUE");
+						//addr.sendMsg("/viewFlores14TRUE");
 						addr.sendMsg("/viewFlores2TRUE");
-						0.5.wait;
+						0.5.rand.wait;
+						addr.sendMsg("/viewFlores6FALSE");
+						addr.sendMsg("/viewFlores21FALSE");
+						//addr.sendMsg("/viewFlores13FALSE");						addr.sendMsg("/viewFlores6FALSE");
+						//addr.sendMsg("/viewFlores14FALSE");
+						addr.sendMsg("/viewFlores2FALSE");
+						0.5.rand.wait;
+						addr.sendMsg("/viewFlores6TRUE");
+						0.5.rand.wait;
+						addr.sendMsg("/viewFlores6FALSE");
+						0.1.rand.wait;									addr.sendMsg("/viewFlores21TRUE");
+						0.5.rand.wait;			
+						addr.sendMsg("/viewFlores21FALSE");
+						//0.5.rand.wait;
+						//addr.sendMsg("/viewFlores13TRUE");
+						//0.5.rand.wait;
+						//addr.sendMsg("/viewFlores13FALSE");
+						0.5.rand.wait;
+						addr.sendMsg("/viewFlores6TRUE");
+						0.5.rand.wait;
+						addr.sendMsg("/viewFlores6FALSE");
+						0.5.rand.wait;
+						//addr.sendMsg("/viewFlores14TRUE");
+						//0.5.rand.wait;
+						//addr.sendMsg("/viewFlores14FALSE");
+						//0.5.rand.wait;
+						addr.sendMsg("/viewFlores2TRUE");
+						0.5.rand.wait;
 						addr.sendMsg("/viewFlores2FALSE");
 						};
+						});
+						floresCambian.start;
 						}.fork;
 																)											}
 		);
 		// Los dos hablan
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 3 Los dos hablan", Color.black, Color.white],
-					["Escena 3 Los dos hablan", Color.white, Color.black],
+					["Ventana Rota", Color.black, Color.white],
+					["Ventana Rota", Color.white, Color.black],
 				])
 				.action_({  					
 					(
 						{	
-						// initial values						
-						addr.sendMsg("/fbo4",1);
-						addr.sendMsg("/fbo20",1);
-						addr.sendMsg("/fbo22",1);
-						addr.sendMsg("/viewRaton4TRUE");
-						1.wait;					
-						addr.sendMsg("/viewRaton20TRUE");
-						1.wait;
-						addr.sendMsg("/viewRaton22TRUE");
-						2.wait;	
-						addr.sendMsg("/viewRaton4FALSE");
-						addr.sendMsg("/viewRaton20FALSE");
-						addr.sendMsg("/viewRaton22FALSE");
-						addr.sendMsg("/viewLadrillo4TRUE");
-						addr.sendMsg("/viewLadrillo20TRUE");
-						addr.sendMsg("/viewLadrillo22TRUE");
+						// initial values	
+														floresCambian.stop;
+						addr.sendMsg("/fbo");								addr.sendMsg("/background", 0,0,0);
+						addr.sendMsg("/fbo21", 1);
+						5.wait;
+						addr.sendMsg("/fbo6", 1);	
 						3.wait;
-						addr.sendMsg("/viewCiudadDestruidaFALSE");
-						addr.sendMsg("/viewCiudadDestruidaConLluviaTRUE");
-
+						addr.sendMsg("/fbo7", 1);	
+						2.wait;
+						addr.sendMsg("/fbo8", 1);	
+						2.wait;
+						addr.sendMsg("/fbo23", 1);	
+						3.wait;
+						addr.sendMsg("/fbo1", 1);	
+						addr.sendMsg("/fbo2", 1);
+						2.wait;
+						addr.sendMsg("/fbo0", 1);								
+//						addr.sendMsg("/fbo13", 1);	
+//						addr.sendMsg("/fbo14", 1);							
 						}.fork;
 																)											}
 		);
 		// El bals del oso
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 4 El Bals del Oso", Color.black, Color.white],
-					["Escena 4 El Bals del Oso", Color.white, Color.black],
+					["El Bals del Oso", Color.black, Color.white],
+					["El Bals del Oso", Color.white, Color.black],
 				])
 				.action_({  					
 					(
@@ -269,7 +270,7 @@ Escenas_GUI	{
 						addr.sendMsg("/feedbackView",1);
 						addr.sendMsg("/timeLine",1);
 						addr.sendMsg("/feedbackSpeedY", 0.4);
-						5.wait;
+						1.wait;
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
@@ -280,18 +281,21 @@ Escenas_GUI	{
 						addr.sendMsg("/timeLine",0);
 						addr.sendMsg("/feedbackSpeedY", 0);
 						
-						20 do:	{
-						addr.sendMsg("/mariposa");
-						0.3.wait;
-						};
-						
 						balsOso = Task({
 						inf do:	{
-						addr.sendMsg("/mariposa");
-						0.1.wait;
+						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
+						addr.sendMsg("/r7", 255.rand);
+						addr.sendMsg("/g7", 255.rand);
+						addr.sendMsg("/b7", 255.rand);						1.wait;
 						};
 						});
-						balsOso.start
+						balsOso.start;
+						4.wait;
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedX", 0.4);
+
+						
 						
 						
 						
@@ -303,38 +307,48 @@ Escenas_GUI	{
 		//	Solo de Chang Ti Chan
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 5 Solo de Chang Ti Chan", Color.black, Color.white],
-					["Escena 5 Solo de Chang Ti Chan", Color.white, Color.black],
+					["Solo de Chang Ti Chan", Color.black, Color.white],
+					["Solo de Chang Ti Chan", Color.white, Color.black],
 				])
 				.action_({  					
 					(
 						{	
 						// initial values
 						balsOso.stop;
-						addr.sendMsg("/feedbackView",1);
-						addr.sendMsg("/timeLine",1);
-						addr.sendMsg("/feedbackSpeedY", 0.4);
-						2.wait;
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
 						addr.sendMsg("/b8", 0);		
+						
+						20 do:	{
+						addr.sendMsg("/mariposa");
+						0.3.wait;
+						};
+						
+						soloChan = Task({
+						inf do:	{
+						addr.sendMsg("/mariposa");
+						0.1.wait;
+						};
+						});
+						soloChan.start;
+						
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", 0.4);						2.wait;
 						addr.sendMsg("/feedbackSpeedY", 0.8);
 						2.wait;
 						addr.sendMsg("/feedbackSpeedY", 0.2);
 						addr.sendMsg("/a8", 2);
-						soloChan = Task({
-						inf do:	{
-						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
-						addr.sendMsg("/r7", 255.rand);
-						addr.sendMsg("/g7", 255.rand);
-						addr.sendMsg("/b7", 255.rand);
-								
-
-						3.rand.wait;
-						};
-						});
-						soloChan.start;
+						4.wait;
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						addr.sendMsg("/feedbackSpeedX", 0);						
+						addr.sendMsg("/a8", 0);
 
 						}.fork;
 																)											}
@@ -342,25 +356,46 @@ Escenas_GUI	{
 		//	Construllen el bar
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 6 Construllen el bar", Color.black, Color.white],
-					["Escena 6 Construllen el bar", Color.white, Color.black],
+					["Construllen el bar", Color.black, Color.white],
+					["Construllen el bar", Color.white, Color.black],
 				])
 				.action_({  					
 					(
 						{	
 						// initial values
 						soloChan.stop;
-						2.wait;
-						addr.sendMsg("/soloChanTiChanFALSE");
-						
+						addr.sendMsg("/a8", 0);
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", -0.4);
+						0.1.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						0.1.wait;
+						addr.sendMsg("/a8", 0);
 						arbols = Task({
 						inf do:	{
 						addr.sendMsg("/arbol");
 						
-						0.1.wait;
+						1.rand.wait;
 						};
 						});
 						arbols.start;
+						1.wait;
+						addr.sendMsg("/feedbackSpeedY", 0);
+						addr.sendMsg("/feedbackSpeedX", 0.1);
+						1.rand.wait;
+						addr.sendMsg("/feedbackSpeedY", 0.3);
+						addr.sendMsg("/feedbackSpeedX", 0.1);
+						1.rand.wait;
+						addr.sendMsg("/feedbackSpeedY", -0.2);
+						addr.sendMsg("/feedbackSpeedX", 0);
+						1.rand.wait;
+						addr.sendMsg("/feedbackSpeedY", 0);
+						addr.sendMsg("/feedbackSpeedX", 0.1);
+						
 
 
 						}.fork;
@@ -369,8 +404,8 @@ Escenas_GUI	{
 		//	Aparece el horno
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 7 Aparece el horno", Color.black, Color.white],
-					["Escena 7 Aparece el horno", Color.white, Color.black],
+					["Aparece el horno", Color.black, Color.white],
+					["Aparece el horno", Color.white, Color.black],
 				])
 				.action_({  					
 					(
@@ -399,20 +434,34 @@ Escenas_GUI	{
 		//	Entra la limpiadora
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Escena 8 Entra la limpiadora", Color.black, Color.white],
-					["Escena 8 Entra la limpiadora", Color.white, Color.black],
+					["Entra la limpiadora", Color.black, Color.white],
+					["Entra la limpiadora", Color.white, Color.black],
 				])
 				.action_({  					
 					(
 						{ 
 						// initial values
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						
+						addr.sendMsg("/a8", 10);
 						burbujas = Task({
 						inf do:	{
 						addr.sendMsg("/burbujas");
-						0.1.wait;
+						0.3.rand.wait;
 						};
 						});
-						burbujas.start;
+						burbujas.start;									3.wait;
+						addr.sendMsg("/a8", 0);
+						3.wait;
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", -0.3);						addr.sendMsg("/a8", 10);
+						5.wait;
+						addr.sendMsg("/a8", 0);
+						
+
 						}.fork;
 																)											}
 		);

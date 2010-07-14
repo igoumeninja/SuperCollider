@@ -29,7 +29,7 @@ Open_GUI	{
 	
 	// start initialize	
 	init {
-		Sendmidi.start;
+		//Sendmidi.start;
 		//Sound_GUI.new;
 		//Main_GUI.new;
 		UnaCiudadSonada.new;	
