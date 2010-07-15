@@ -18,7 +18,7 @@ Escenas_GUI	{
 	var	<a;
 	var	<q;		
 	var 	window;
-	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas, sketchCasas, floresCambian;
+	var 	balsOso, soloChan, arbols, golondrinasTask, burbujas, sketchCasas, floresCambian, deseo, floresPelean;
 	
 	*default {
 		if (default.isNil) { default = this.new }; 
@@ -79,6 +79,13 @@ Escenas_GUI	{
 					(
 						{	var a8=0,r8=0,g8=0,b8=0,afbo6=0,afbo7=0,afbo8=0,afbo123=0,afbo15_17=0,afbo21_23=0;	
 						// initial values
+						
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						2.wait;
+						addr.sendMsg("/fbo0", 0);
 						addr.sendMsg("/fbo6", 0);
 						addr.sendMsg("/fbo7", 0);
 						addr.sendMsg("/fbo8", 0);
@@ -134,35 +141,12 @@ Escenas_GUI	{
 						addr.sendMsg("/viewtejadosCasaDerechaTRUE");						
 						
 						//addr.sendMsg("/fbo16", 1);
-						80 do:	{	
+						255 do:	{	
 							afbo21_23 = (afbo21_23 + 0.36);
 							addr.sendMsg("/afbo21_23", afbo21_23);
 							0.1.wait;				
 						};
 
-						}.fork;
-																)											}
-		);
-		//La Oso Construllen la casa Izquierda
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["El Oso construllen la casa Izquierda", Color.black, Color.white],
-					["El Oso construllen la casa Iquierda", Color.white, Color.black],
-				])
-				.action_({  					
-					(
-						{	var afbo123=0, afbo15_17 = 0;	
-						// initial values
-						// 1,2,3
-						addr.sendMsg("/fbo1", 1);	
-						addr.sendMsg("/fbo2", 1);	
-						addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
-						addr.sendMsg("/viewTejadoCasaIzquierdaTRUE");						
-						80 do:	{	
-							afbo123 = (afbo123 + 0.36);
-							addr.sendMsg("/afbo123", afbo123);
-							0.1.wait;				
-						};
 						}.fork;
 																)											}
 		);
@@ -182,14 +166,12 @@ Escenas_GUI	{
 						inf do:	{
 						addr.sendMsg("/viewFlores6TRUE");
 						addr.sendMsg("/viewFlores21TRUE");
-						//addr.sendMsg("/viewFlores13TRUE");						addr.sendMsg("/viewFlores6TRUE");
-						//addr.sendMsg("/viewFlores14TRUE");
+						addr.sendMsg("/viewFlores6TRUE");
 						addr.sendMsg("/viewFlores2TRUE");
 						0.5.rand.wait;
 						addr.sendMsg("/viewFlores6FALSE");
 						addr.sendMsg("/viewFlores21FALSE");
-						//addr.sendMsg("/viewFlores13FALSE");						addr.sendMsg("/viewFlores6FALSE");
-						//addr.sendMsg("/viewFlores14FALSE");
+						addr.sendMsg("/viewFlores6FALSE");
 						addr.sendMsg("/viewFlores2FALSE");
 						0.5.rand.wait;
 						addr.sendMsg("/viewFlores6TRUE");
@@ -198,25 +180,39 @@ Escenas_GUI	{
 						0.1.rand.wait;									addr.sendMsg("/viewFlores21TRUE");
 						0.5.rand.wait;			
 						addr.sendMsg("/viewFlores21FALSE");
-						//0.5.rand.wait;
-						//addr.sendMsg("/viewFlores13TRUE");
-						//0.5.rand.wait;
-						//addr.sendMsg("/viewFlores13FALSE");
 						0.5.rand.wait;
 						addr.sendMsg("/viewFlores6TRUE");
 						0.5.rand.wait;
 						addr.sendMsg("/viewFlores6FALSE");
 						0.5.rand.wait;
-						//addr.sendMsg("/viewFlores14TRUE");
-						//0.5.rand.wait;
-						//addr.sendMsg("/viewFlores14FALSE");
-						//0.5.rand.wait;
 						addr.sendMsg("/viewFlores2TRUE");
 						0.5.rand.wait;
 						addr.sendMsg("/viewFlores2FALSE");
 						};
 						});
 						floresCambian.start;
+						}.fork;
+																)											}
+		);
+		// Que se pelea  II
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Que se Pelean con Flores", Color.black, Color.white],
+					["Que se Pelean con Flores", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	
+						// initial values
+
+						floresPelean = Task({
+						inf do:	{
+						addr.sendMsg("/flore");
+						0.5.rand.wait;
+						};
+						});
+						floresPelean.start;
+
 						}.fork;
 																)											}
 		);
@@ -230,7 +226,7 @@ Escenas_GUI	{
 					(
 						{	
 						// initial values	
-														floresCambian.stop;
+																		floresCambian.stop;
 						addr.sendMsg("/fbo");								addr.sendMsg("/background", 0,0,0);
 						addr.sendMsg("/fbo21", 1);
 						5.wait;
@@ -242,10 +238,14 @@ Escenas_GUI	{
 						2.wait;
 						addr.sendMsg("/fbo23", 1);	
 						3.wait;
-						addr.sendMsg("/fbo1", 1);	
-						addr.sendMsg("/fbo2", 1);
+						addr.sendMsg("/fbo4", 1);	
+						addr.sendMsg("/viewLadrillo4TRUE");						3.wait;
+						addr.sendMsg("/fbo5", 1);	
+						addr.sendMsg("/viewLadrillo4TRUE");							
 						2.wait;
-						addr.sendMsg("/fbo0", 1);								
+						
+												
+						//addr.sendMsg("/fbo0", 1);								
 //						addr.sendMsg("/fbo13", 1);	
 //						addr.sendMsg("/fbo14", 1);							
 						}.fork;
@@ -331,7 +331,7 @@ Escenas_GUI	{
 						soloChan = Task({
 						inf do:	{
 						addr.sendMsg("/mariposa");
-						0.1.wait;
+						0.5.rand.wait;
 						};
 						});
 						soloChan.start;
@@ -363,6 +363,7 @@ Escenas_GUI	{
 					(
 						{	
 						// initial values
+						addr.sendMsg("/soloChanTiChanFALSE");
 						soloChan.stop;
 						addr.sendMsg("/a8", 0);
 						addr.sendMsg("/feedbackView",1);
@@ -375,14 +376,15 @@ Escenas_GUI	{
 						addr.sendMsg("/b8", 0);
 						0.1.wait;
 						addr.sendMsg("/a8", 0);
+						
 						arbols = Task({
 						inf do:	{
 						addr.sendMsg("/arbol");
-						
-						1.rand.wait;
+						0.3.rand.wait;
 						};
 						});
-						arbols.start;
+						arbols.start;									
+						
 						1.wait;
 						addr.sendMsg("/feedbackSpeedY", 0);
 						addr.sendMsg("/feedbackSpeedX", 0.1);
@@ -394,7 +396,7 @@ Escenas_GUI	{
 						addr.sendMsg("/feedbackSpeedX", 0);
 						1.rand.wait;
 						addr.sendMsg("/feedbackSpeedY", 0);
-						addr.sendMsg("/feedbackSpeedX", 0.1);
+						addr.sendMsg("/feedbackSpeedX", 3);
 						
 
 
@@ -411,23 +413,15 @@ Escenas_GUI	{
 					(
 						{ 
 						// initial values
-						//arbols.stop;	
+						arbols.stop;	
 						addr.sendMsg("/a8", 10);
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
 						addr.sendMsg("/b8", 0);
-						
-						//addr.sendMsg("/afbo21_23", 0);
 						addr.sendMsg("/viewVentanaRotaFALSE");
 						addr.sendMsg("/viewChimaneaTRUE");
 						
-						addr.sendMsg("/fbo23", 1);
-						//addr.sendMsg("/fbo16", 1);
-//						80 do:	{	
-//							afbo21_23 = (afbo21_23 + 0.36);
-//							addr.sendMsg("/afbo21_23", afbo21_23);
-//							0.1.wait;				
-//						};
+						addr.sendMsg("/fbo21", 1);
 						}.fork;
 																)											}
 		);
@@ -465,6 +459,217 @@ Escenas_GUI	{
 						}.fork;
 																)											}
 		);
+		//La Oso Construllen la casa Izquierda
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["El Oso construllen la casa Izquierda", Color.black, Color.white],
+					["El Oso construllen la casa Iquierda", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	var afbo123=0, afbo15_17 = 0;	
+						// initial values
+						// 1,2,3
+						addr.sendMsg("/fbo1", 1);	
+						addr.sendMsg("/fbo2", 1);	
+						addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
+						addr.sendMsg("/viewTejadoCasaIzquierdaTRUE");						
+						255 do:	{	
+							afbo123 = (afbo123 + 0.36);
+							addr.sendMsg("/afbo123", afbo123);
+							0.1.wait;				
+						};
+						}.fork;
+																)											}
+		);
+		
+		//	Primer Amor
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Lluvia", Color.black, Color.white],
+					["Lluvia", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/background", 0,0,0);						
+						addr.sendMsg("/fbo24", 1);
+						burbujas.stop;			
+						addr.sendMsg("/feedbackView",1);
+//						addr.sendMsg("/viewCasasNegrasTRUE");						
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedX", 0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						addr.sendMsg("/viewGotasTRUE");
+						
+						addr.sendMsg("/a8", 0);
+						}.fork;
+																)											}
+		);
+		//	Lluvia se cae
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Lluvia se cae", Color.black, Color.white],
+					["Lluvia se cae", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/a8", 0);	
+						addr.sendMsg("/feedbackSpeedY", 0.8);
+						}.fork;
+																)											}
+		);
+		
+		//	Almanecer
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Almanecer", Color.black, Color.white],
+					["Almanecer", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/viewGotasFALSE");
+						addr.sendMsg("/fbo24", 0);						
+						0.3.wait;
+						addr.sendMsg("/a8", 0);
+						2.1.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						5.wait;
+						addr.sendMsg("/background", 0,0,0);
+
+						
+						}.fork;
+																)											}
+		);
+		
+		//	Casas
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Casa Grande", Color.black, Color.white],
+					["Casa Grande", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/fbo9", 1);
+						addr.sendMsg("/fbo10", 1);
+						addr.sendMsg("/fbo11", 1);
+						addr.sendMsg("/fbo12", 1);
+						
+						addr.sendMsg("/viewSketchCasasFALSE");
+						addr.sendMsg("/viewCasaGrandeTRUE");						}.fork;
+																)											}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Campanario", Color.black, Color.white],
+					["Campanario", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/viewSketchCasasFALSE");
+						addr.sendMsg("/viewCampanarioTRUE");
+						}.fork;
+																)											}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Casa Aqua", Color.black, Color.white],
+					["Casa Aqua", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/viewSketchCasasFALSE");
+						addr.sendMsg("/viewCasaAquaTRUE");
+
+						}.fork;
+																)											}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Casa Derecha", Color.black, Color.white],
+					["Casa Derecha", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						addr.sendMsg("/viewSketchCasasFALSE");
+						addr.sendMsg("/viewCasaDerechaTRUE");
+						}.fork;
+																)											}
+		);
+		
+		//	sKeTch at casas 9, 10, 11, 12
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Escena sKeTch Casas", Color.black, Color.white],
+					["Escena sKeTch Casas", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{ 
+						// initial values
+						burbujas.stop;
+						addr.sendMsg("/fbo9", 1);
+						addr.sendMsg("/fbo10", 1);
+						addr.sendMsg("/fbo11", 1);
+						addr.sendMsg("/fbo12", 1);
+						addr.sendMsg("/viewCasaGrandeFALSE");						addr.sendMsg("/viewCampanarioFALSE");
+						addr.sendMsg("/viewCasaAquaFALSE");
+						addr.sendMsg("/viewCasaDerechaFALSE");						addr.sendMsg("/viewSketchCasasTRUE");						}.fork;
+				)											}
+		);
+		
+		//Deseo
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["El Deseo", Color.black, Color.white],
+				])
+				.action_({ 
+				(
+					{
+						addr.sendMsg("/a8", 0);
+						addr.sendMsg("/feedbackView",1);
+						addr.sendMsg("/timeLine",1);
+						addr.sendMsg("/feedbackSpeedY", -0.4);
+						0.1.wait;
+						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/r8", 0);
+						addr.sendMsg("/g8", 0);
+						addr.sendMsg("/b8", 0);
+						0.1.wait;
+						addr.sendMsg("/background", 0,0,0);
+						addr.sendMsg("/feedbackView",0);
+						addr.sendMsg("/timeLine",0);
+						addr.sendMsg("/feedbackSpeedY", 0);
+						addr.sendMsg("/feedbackSpeedX", 0);						deseo = Task({
+						120 do:	{
+							addr.sendMsg("/deseo");
+							0.5.wait;	
+							};
+						
+						});
+						deseo.start;				
+						}.fork;
+					)	
+				}
+		);
+		
 		
 		// TENGO QUE PARAR LAS BURBUJAS
 		
@@ -500,38 +705,6 @@ Escenas_GUI	{
 						}.fork;
 																)											}
 		);
-		//	sKeTch at casas 9, 10, 11, 12
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Escena sKeTch Casas", Color.black, Color.white],
-					["Escena sKeTch Casas", Color.white, Color.black],
-				])
-				.action_({  					
-					(
-						{ 
-						// initial values
-						addr.sendMsg("/fbo9", 1);
-						addr.sendMsg("/fbo10", 1);
-						addr.sendMsg("/fbo11", 1);
-						addr.sendMsg("/fbo12", 1);
-						addr.sendMsg("/viewSketchCasasTRUE", 1);						
-//						sketchCasas = Task({
-//						inf do:	{
-//						addr.sendMsg("/soloChanTiChanTRUE",3000.rand, 1000.rand);
-//						addr.sendMsg("/r7", 255.rand);
-//						addr.sendMsg("/g7", 255.rand);
-//						addr.sendMsg("/b7", 255.rand);
-								
-
-//						3.rand.wait;
-//						};
-//						});
-//						sketchCasas.start;
-			
-						}.fork;
-																)											}
-		);
-		
 		//	Para las golondrinas
 		Button(window, Rect(20,20,300,20))
 				.states_([
