@@ -4,22 +4,23 @@
 }
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0\fs18 \cf2 Open_GUI.new\
-Escenas_GUI\
-UnaCiudadSonada\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 \
+\f0\fs18 \cf2 Escenas.new\cf0 \
 o = \cf3 NetAddr\cf0 (\cf4 "127.0.0.1"\cf0 , 12345);\
-o.sendMsg(\cf4 "/viewMontanasTRUE"\cf0 , 1);\
-o.sendMsg(\cf4 "/a8"\cf0 , 10);\
-o.sendMsg(\cf4 "/r8"\cf0 , 0);\
-o.sendMsg(\cf4 "/g8"\cf0 , 0);\
-o.sendMsg(\cf4 "/b8"\cf0 , 0);\
-o.sendMsg(\cf4 "/background"\cf0 , 255,255,255);\
 o.sendMsg(\cf4 "/background"\cf0 , 0,0,0);\
-n	o.sendMsg(\cf4 "/viewtejadosCasaDerechaFALSE"\cf0 );\
+o.sendMsg(\cf4 "/a8"\cf0 , 0);\
+o.sendMsg(\cf4 "/r7"\cf0 , 250);\
+o.sendMsg(\cf4 "/g7"\cf0 , 250);\
+o.sendMsg(\cf4 "/b7"\cf0 , 0);\
+o.sendMsg(\cf4 "/background"\cf0 , 255,255,255);\
+\
+o.sendMsg(\cf4 "/\cf0 viewJasminTRUE")\
 o.sendMsg(\cf4 "/viewtejadosCasaDerechaTRUE"\cf0 );\
 o.sendMsg(\cf4 "/timeLine"\cf0 , 0);\
 o.sendMsg(\cf4 "/feedbackView"\cf0 ,1);\
-o.sendMsg(\cf4 "/feedbackSpeedY"\cf0 , 0.9);\
-o.sendMsg(\cf4 "/gotas"\cf0 );}
+o.sendMsg(\cf4 "/feedbackSpeedY"\cf0 , 15.9);\
+o.sendMsg(\cf4 "/feedbackSpeedX"\cf0 , 2.8);\
+o.sendMsg(\cf4 "/gotas"\cf0 );\
+o.sendMsg(\cf4 "/viewMontanasTRUE"\cf0 , 1);\
+\
+soloChan.stop\
+Fbo_GUI.new}
