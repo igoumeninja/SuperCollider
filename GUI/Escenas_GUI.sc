@@ -227,6 +227,7 @@ Escenas_GUI	{
 						{	
 						// initial values	
 																		floresCambian.stop;
+																		floresPelean.stop;						
 						addr.sendMsg("/fbo");								addr.sendMsg("/background", 0,0,0);
 						addr.sendMsg("/fbo21", 1);
 						5.wait;
@@ -613,6 +614,28 @@ Escenas_GUI	{
 						}.fork;
 																)											}
 		);
+		//La Oso Construllen la casa
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Casa Derecha", Color.black, Color.white],
+					["Casa Derecha", Color.white, Color.black],
+				])
+				.action_({  					
+					(
+						{	var afbo21_23=0;	
+						// initial values
+						// 21, 23
+						addr.sendMsg("/afbo21_23", 255);
+						addr.sendMsg("/fbo21", 1);
+						addr.sendMsg("/fbo23", 1);
+						
+						addr.sendMsg("/viewVentanaRotaTRUE");
+						addr.sendMsg("/viewtejadosCasaDerechaTRUE");						
+
+						}.fork;
+																)											}
+		);
+		
 		
 		//	sKeTch at casas 9, 10, 11, 12
 		Button(window, Rect(20,20,300,20))
