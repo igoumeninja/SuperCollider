@@ -32,7 +32,7 @@ Fbo_GUI	{
 	
 	init { | argServer, argAddr, argChan = 0 |
 		server = argServer ?? { Server.default };  //define server
-		addr =  argAddr ?? { NetAddr("127.0.0.1", 12345); }; //localhost, oF port
+		addr =  argAddr ?? { NetAddr("127.0.0.1", 57120); }; //localhost, oF port
 		this.fboGUI;
 	}
 	
@@ -44,13 +44,29 @@ Fbo_GUI	{
 		q = window.addFlowLayout( 10@10, 20@5 );
 		Button(window, Rect(20,20,300,20))
 				.states_([
+					["TEST if", Color.black, Color.white],
+					["TEST if", Color.white, Color.black],
+				])
+				.action_({ arg butt; 
+					if( butt.value == 0,{
+					addr.sendMsg("/true", butt.value)
+					},{
+					addr.sendMsg("/false", butt.value)
+					});
+				
+				
+				}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
 					["FBO enable", Color.black, Color.white],
 					["FBO disable", Color.white, Color.black],
 				])
 				.action_({ arg butt; 
 					addr.sendMsg("/fbo");
 					window.close;
-					Fbo_GUI.new}
+					Fbo_GUI.new
+					}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
@@ -107,8 +123,8 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 5 empty", Color.black, Color.white],
-					["FBO 5 empty", Color.white, Color.black],
+					["FBO 5 Ojo", Color.black, Color.white],
+					["FBO 5 Ojo", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo5", butt.value)}
 		);
@@ -198,15 +214,15 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 18 muro frontal del bar", Color.black, Color.white],
-					["FBO 18 muro frontal del bar", Color.white, Color.black],
+					["FBO 18 BAR muro frontal del bar ", Color.black, Color.white],
+					["FBO 18 BAR muro frontal del bar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo18", butt.value)}
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 19 muro lateral del bar", Color.black, Color.white],
-					["FBO 19 muro lateral del bar", Color.white, Color.black],
+					["FBO 19 CASA muro del bar", Color.black, Color.white],
+					["FBO 19 CASA muro del bar", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo19", butt.value)}
 		);
