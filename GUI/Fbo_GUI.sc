@@ -32,7 +32,7 @@ Fbo_GUI	{
 	
 	init { | argServer, argAddr, argChan = 0 |
 		server = argServer ?? { Server.default };  //define server
-		addr =  argAddr ?? { NetAddr("127.0.0.1", 57120); }; //localhost, oF port
+		addr =  argAddr ?? { NetAddr("127.0.0.1", 12345); }; //localhost, oF port
 		this.fboGUI;
 	}
 	
@@ -42,21 +42,6 @@ Fbo_GUI	{
 		window.view.background_(Color.new255(22,75,27));
 		window.bounds_(Rect(330,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["TEST if", Color.black, Color.white],
-					["TEST if", Color.white, Color.black],
-				])
-				.action_({ arg butt; 
-					if( butt.value == 0,{
-					addr.sendMsg("/true", butt.value)
-					},{
-					addr.sendMsg("/false", butt.value)
-					});
-				
-				
-				}
-		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
 					["FBO enable", Color.black, Color.white],
