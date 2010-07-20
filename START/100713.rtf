@@ -6,10 +6,9 @@
 
 \f0\fs18 \cf2 Escenas.new\cf0 \
 o = \cf3 NetAddr\cf0 (\cf4 "127.0.0.1"\cf0 , 12345);\
-o.sendMsg(\cf4 "/deseoGrande"\cf0 );\
 o.sendMsg(\cf4 "/background"\cf0 , 0,0,0);\
-o.sendMsg(\cf4 "/a8"\cf0 , 2);\
-o.sendMsg(\cf4 "/r8"\cf0 , 0);\
+o.sendMsg(\cf4 "/a8"\cf0 , 10);\
+Nno.sendMsg(\cf4 "/r8"\cf0 , 2);\
 o.sendMsg(\cf4 "/g8"\cf0 , 0);\
 No.sendMsg(\cf4 "/b8"\cf0 , 0);\
 o.sendMsg(\cf4 "/background"\cf0 , 255,255,255);\
@@ -30,4 +29,7 @@ soloChan.stop\
 Fbo_GUI.new\
 o.sendMsg(\cf4 "/fbo4"\cf0 , 1);	\
 o..sendMsg(\cf4 "/viewBarNuevoFALSE"\cf0 );\
-Final}
+Final\
+Deseos\
+all.free\
+casas.stop}
