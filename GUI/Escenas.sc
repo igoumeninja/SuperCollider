@@ -255,8 +255,7 @@ Escenas	{
 						var 	l,t;
 						var	theta = 0;
 						var	length = 30;
-						addr.sendMsg("/a8", 5);	
-						addr.sendMsg("/a8", 10);
+						addr.sendMsg("/a8", 2);	
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
 						addr.sendMsg("/b8", 0);
@@ -271,13 +270,13 @@ Escenas	{
 							inf do:	{
 								l= RedLSystem("+++F--F--F", ($F: "F--F--2F--GG", $G: "GG"));
 								t = RedLTurtle(l, length, theta, 1);
-								2 do:	{
+								1 do:	{
 									l.next;
 								};
 							
 						addr.sendMsg("/golondrinas", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
 						theta = theta + 1;
-						0.2.wait;	
+						0.1.wait;	
 						
 						};
 						});	
@@ -615,7 +614,7 @@ Escenas	{
 						addr.sendMsg("/fbo11", 0);	
 						addr.sendMsg("/fbo12", 0);	
 						addr.sendMsg("/fbo21", 0);	
-						addr.sendMsg("/fbo23", 0);	
+						addr.sendMsg("/fbo19", 0);							addr.sendMsg("/fbo23", 0);	
 						addr.sendMsg("/fbo1", 0);	
 						addr.sendMsg("/fbo2", 0);							addr.sendMsg("/timeLine",0);
 						casas.stop;

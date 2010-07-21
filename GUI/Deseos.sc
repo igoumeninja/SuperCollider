@@ -143,6 +143,7 @@ Deseos	{
 					["XXX Deseo JALEO", Color.white, Color.black],
 				])
 				.action_({ arg butt;  								 	if( butt.value == 0,{
+							addr.sendMsg("/a8", 10);
 							deseo1.stop;			
 							deseo2.stop;			
 							deseo3.stop;			
