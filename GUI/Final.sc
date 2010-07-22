@@ -48,6 +48,22 @@ Final	{
 		window.view.background_(Color.new255(22,75,27));
 		window.bounds_(Rect(660,0,330,880));
 		q = window.addFlowLayout( 10@10, 20@5 );
+		//view Indio
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["view Indio", Color.black, Color.white],
+					["NO view Indio", Color.white, Color.black],					
+				])
+				.action_({arg butt;
+				if( butt.value == 0, 
+				{
+				addr.sendMsg("/a8", 10);		
+				},{
+				addr.sendMsg("/background", 0,0,0);
+				addr.sendMsg("/a8", 0);								addr.sendMsg("/viewIndioTRUE");						 });
+					 
+				}
+		);
 		//view Azucar
 		Button(window, Rect(20,20,300,20))
 				.states_([
@@ -248,9 +264,9 @@ Final	{
 					}, { 					
 					(
 						{ 	
-						addr.sendMsg("/a7", 75);							addr.sendMsg("/r7", 255);
-						addr.sendMsg("/g7", 255);
-						addr.sendMsg("/b7", 255);							balsOso = Task({
+						addr.sendMsg("/a7", 75);							addr.sendMsg("/r7", 55);
+						addr.sendMsg("/g7", 25);
+						addr.sendMsg("/b7", 225);							balsOso = Task({
 						inf do:	{
 						addr.sendMsg("/soloChanTiChanTRUE",2400.rand, 800.rand);
 						7.wait;
@@ -259,6 +275,30 @@ Final	{
 						balsOso.start;
 					}.fork;
 					)	
+					});										}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Ultima Ciudad", Color.black, Color.white],
+					["Ultima Ciudad", Color.white, Color.black],
+				])
+				.action_({ arg butt;
+					if (butt.value == 0, 
+					{
+					addr.sendMsg("/viewUltimaFALSE");						}, { 					
+					addr.sendMsg("/viewUltimaTRUE");
+					});										}
+		);
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Final", Color.black, Color.white],
+					["Final", Color.black, Color.white],
+				])
+				.action_({ arg butt;
+					if (butt.value == 0, 
+					{
+					}, { 					
+					addr.sendMsg("/background", 0,0,0);
 					});										}
 		);
 		

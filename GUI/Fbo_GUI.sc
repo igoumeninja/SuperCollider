@@ -122,8 +122,8 @@ Fbo_GUI	{
 		);
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["FBO 7 montanas", Color.black, Color.white],
-					["FBO 7 montanas", Color.white, Color.black],
+					["FBO 7 tribunal", Color.black, Color.white],
+					["FBO 7 tribunal", Color.white, Color.black],
 				])
 				.action_({ arg butt; addr.sendMsg("/fbo7", butt.value)}
 		);

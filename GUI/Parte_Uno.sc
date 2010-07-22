@@ -12,7 +12,7 @@ SendMidi
 */
 
 
-Escenas	{
+Parte_Uno	{
 	classvar	default;
 	var	<server;			
 	var	<addr;
@@ -39,10 +39,10 @@ Escenas	{
 	init { | argServer, argAddr, argChan = 0 |
 		server = argServer ?? { Server.default };  //define server
 		addr =  argAddr ?? { NetAddr("127.0.0.1", 12345); }; //localhost, oF port
-		this.escenas;
+		this.parte_Uno;
 	}
 	
-	escenas	{
+	parte_Uno	{
 		window = SCWindow("PARTE UNO");
 		window.front;
 		window.view.background_(Color.new255(22,75,27));
@@ -254,8 +254,8 @@ Escenas	{
 						{
 						var 	l,t;
 						var	theta = 0;
-						var	length = 30;
-						addr.sendMsg("/a8", 2);	
+						var	length = 0;
+						addr.sendMsg("/a8", 10);	
 						addr.sendMsg("/r8", 0);
 						addr.sendMsg("/g8", 0);
 						addr.sendMsg("/b8", 0);
@@ -276,7 +276,8 @@ Escenas	{
 							
 						addr.sendMsg("/golondrinas", l.asString, t.length, t.theta, t.scale, t.noise, l.generation);
 						theta = theta + 1;
-						0.1.wait;	
+					 length = length + 0.5;						
+						0.05.wait;	
 						
 						};
 						});	
@@ -419,6 +420,21 @@ Escenas	{
 							
 			}
 		);
+		//	Casa Aqua
+		Button(window, Rect(20,20,300,20))
+				.states_([
+					["Casa Aqua", Color.black, Color.white],
+					["No Casa Aqua", Color.white, Color.black],
+				])
+				.action_({ arg butt;  								 	if( butt.value == 0,{
+						addr.sendMsg("/fbo11", 0);							addr.sendMsg("/viewCasaAquaFALSE");
+					},{
+						addr.sendMsg("/fbo11", 1);							addr.sendMsg("/viewCasaAquaTRUE");
+					});
+							
+			}
+		);
+		
 		//	Casa Grande
 		Button(window, Rect(20,20,300,20))
 				.states_([
@@ -447,31 +463,21 @@ Escenas	{
 							
 			}
 		);
-		//	Casa Aqua
+		//	Casa Izquierda
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Casa Aqua", Color.black, Color.white],
-					["No Casa Aqua", Color.white, Color.black],
+					["Casa Izquierda", Color.black, Color.white],
+					["No Casa Izquierda", Color.white, Color.black],
 				])
 				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/fbo11", 0);							addr.sendMsg("/viewCasaAquaFALSE");
-					},{
-						addr.sendMsg("/fbo11", 1);							addr.sendMsg("/viewCasaAquaTRUE");
-					});
-							
-			}
-		);
-		//	Casa Derecha
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Casa Derecha", Color.black, Color.white],
-					["No Casa Derecha", Color.white, Color.black],
-				])
-				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/fbo12", 0);							addr.sendMsg("/viewCasaDerechaFALSE");
-					},{
-						addr.sendMsg("/fbo12", 1);							addr.sendMsg("/viewCasaDerechaTRUE");
-					});
+						addr.sendMsg("/fbo1", 0);	
+						addr.sendMsg("/fbo2", 0);	
+						addr.sendMsg("/viewMuroCasaIzquierdaFALSE");
+						addr.sendMsg("/viewTejadoCasaIzquierdaFALSE");					},{
+						addr.sendMsg("/fbo1", 1);	
+						addr.sendMsg("/fbo2", 1);	
+						addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
+						addr.sendMsg("/viewTejadoCasaIzquierdaTRUE");					});
 							
 			}
 		);
@@ -497,162 +503,21 @@ Escenas	{
 							
 			}
 		);
-		//	Casa Izquierda
+		
+		//	Casa Derecha
 		Button(window, Rect(20,20,300,20))
 				.states_([
-					["Casa Izquierda", Color.black, Color.white],
-					["No Casa Izquierda", Color.white, Color.black],
+					["Casa Derecha", Color.black, Color.white],
+					["No Casa Derecha", Color.white, Color.black],
 				])
 				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/fbo1", 0);	
-						addr.sendMsg("/fbo2", 0);	
-						addr.sendMsg("/viewMuroCasaIzquierdaFALSE");
-						addr.sendMsg("/viewTejadoCasaIzquierdaFALSE");					},{
-						addr.sendMsg("/fbo1", 1);	
-						addr.sendMsg("/fbo2", 1);	
-						addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
-						addr.sendMsg("/viewTejadoCasaIzquierdaTRUE");					});
-							
-			}
-		);
-		//	Casa Xbar
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Casa Xbar", Color.black, Color.white],
-					["No Casa Xbar", Color.white, Color.black],
-				])
-				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/fbo19", 0);	
-						addr.sendMsg("/viewCasaXBarFALSE");					},{
-						addr.sendMsg("/fbo19", 1);	
-						addr.sendMsg("/viewCasaXBarTRUE");					});
-							
-			}
-		);
-		//	Casas Meadas
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Casas mear", Color.black, Color.white],
-					["No Casas mear", Color.white, Color.black],
-				])
-				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/a8", 10);	
-						addr.sendMsg("/feedbackView",0);
-						addr.sendMsg("/timeLine",0);
-						addr.sendMsg("/feedbackSpeedY", 0);						addr.sendMsg("/feedbackSpeedX", 0);						addr.sendMsg("/fbo4", 1);	
-						addr.sendMsg("/fbo9", 1);	
-						addr.sendMsg("/fbo10", 1);	
-						addr.sendMsg("/fbo11", 1);	
-						addr.sendMsg("/fbo12", 1);	
-						addr.sendMsg("/fbo21", 1);	
-						addr.sendMsg("/fbo19", 1);							addr.sendMsg("/fbo23", 1);	
-						addr.sendMsg("/fbo1", 1);	
-						addr.sendMsg("/fbo2", 1);						},{
-						addr.sendMsg("/a8", 0);	
-						addr.sendMsg("/feedbackView",1);
-						addr.sendMsg("/timeLine",1);
-						addr.sendMsg("/feedbackSpeedY", 0.6);						addr.sendMsg("/feedbackSpeedX", 0);						addr.sendMsg("/fbo4", 0);	
-						addr.sendMsg("/fbo9", 0);	
-						addr.sendMsg("/fbo10", 0);	
-						addr.sendMsg("/fbo11", 0);	
-						addr.sendMsg("/fbo12", 0);	
-						addr.sendMsg("/fbo21", 0);	
-						addr.sendMsg("/fbo19", 0);							addr.sendMsg("/fbo23", 0);	
-						addr.sendMsg("/fbo1", 0);	
-						addr.sendMsg("/fbo2", 0);						});
-							
-			}
-		);
-		//	Casas Bailan
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Casa Bailen", Color.black, Color.white],
-					["Casa Bailen", Color.black, Color.white],
-				])
-				.action_({ arg butt;  								 	if( butt.value == 0,{
-						addr.sendMsg("/a8", 10);					
-						addr.sendMsg("/fbo4", 0);	
-						addr.sendMsg("/fbo9", 0);	
-						addr.sendMsg("/fbo10", 0);	
-						addr.sendMsg("/fbo11", 0);	
-						addr.sendMsg("/fbo12", 0);	
-						addr.sendMsg("/fbo21", 0);	
-						addr.sendMsg("/fbo23", 0);	
-						addr.sendMsg("/fbo1", 0);	
-						addr.sendMsg("/fbo2", 0);							addr.sendMsg("/timeLine",0);
-						casas.stop;
-						
+						addr.sendMsg("/fbo12", 0);							addr.sendMsg("/viewCasaDerechaFALSE");
 					},{
-						addr.sendMsg("/feedbackView",1);
-						addr.sendMsg("/timeLine",1);
-						addr.sendMsg("/feedbackSpeedY", -0.6);						addr.sendMsg("/feedbackSpeedX", 0);
-
-						(
-						casas = Task(
-							{
-								arg f , r = 10, x = 0, y = r, z, o;
-								z = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];		
-								inf.do(
-								{
-								switch (z.choose,
-									1,   { addr.sendMsg("/fbo4", 1) },
-									2, 	{ addr.sendMsg("/fbo9", 1) },
-									3, 	{ addr.sendMsg("/fbo10", 1) },
-									4, 	{ addr.sendMsg("/fbo11", 1) },
-									5, 	{ addr.sendMsg("/fbo12", 1) },
-									6, 	{ addr.sendMsg("/fbo21", 1) },
-									7, 	{ addr.sendMsg("/fbo23", 1) },
-									8, 	{ addr.sendMsg("/fbo1", 1) },																			9, 	{ addr.sendMsg("/fbo2", 1) },																			10, 	{ addr.sendMsg("/fbo4", 1) },
-									11,   { addr.sendMsg("/fbo4", 0) },
-									12, 	{ addr.sendMsg("/fbo9", 0) },
-									13, 	{ addr.sendMsg("/fbo10", 0) },
-									14, 	{ addr.sendMsg("/fbo11", 0) },
-									15, 	{ addr.sendMsg("/fbo12", 0) },
-									16, 	{ addr.sendMsg("/fbo21", 0) },
-									17, 	{ addr.sendMsg("/fbo23", 0) },
-									18, 	{ addr.sendMsg("/fbo1", 0) },																			19, 	{ addr.sendMsg("/fbo2", 0) },																			20, {addr.sendMsg("/viewCasaXBarFALSE") },
-									21, {addr.sendMsg("/viewMuroCasaIzquierdaTRUE");
-									addr.sendMsg("/viewTejadoCasaIzquierdaTRUE"); },
-									22, {addr.sendMsg("/viewMuroCasaIzquierdaFALSE");
-									addr.sendMsg("/viewTejadoCasaIzquierdaFALSE"); },
-									23, {addr.sendMsg("/viewCasaDerechaTRUE")},
-									24, {addr.sendMsg("/viewCasaDerechaFALSE")},								
-									25, {addr.sendMsg("/viewCasaAquaFALSE")},
-									26, {addr.sendMsg("/viewCasaAquaTRUE")},
-									27, {addr.sendMsg("/viewCampanarioFALSE") },
-									28, {addr.sendMsg("/viewCampanarioTRUE")},
-									29, {addr.sendMsg("/viewCasaGrandeFALSE")},																	30, {addr.sendMsg("/viewCasaGrandeTRUE")}																		
-								);			
-								0.01.wait; 
-								}
-								)
-							}
-							);
-						)
-						
+						addr.sendMsg("/fbo12", 1);							addr.sendMsg("/viewCasaDerechaTRUE");
 					});
-					casas.start; 
 							
 			}
 		);
-		//	Casas Bailan
-		Button(window, Rect(20,20,300,20))
-				.states_([
-					["Casas NO Bailen", Color.black, Color.white],
-					["Casas NO Bailen", Color.black, Color.white],
-				])
-				.action_({ arg butt;  										addr.sendMsg("/a8", 10);					
-						addr.sendMsg("/fbo4", 0);	
-						addr.sendMsg("/fbo9", 0);	
-						addr.sendMsg("/fbo10", 0);	
-						addr.sendMsg("/fbo11", 0);	
-						addr.sendMsg("/fbo12", 0);	
-						addr.sendMsg("/fbo21", 0);	
-						addr.sendMsg("/fbo19", 0);							addr.sendMsg("/fbo23", 0);	
-						addr.sendMsg("/fbo1", 0);	
-						addr.sendMsg("/fbo2", 0);							addr.sendMsg("/timeLine",0);
-						casas.stop;
-			}
-		);
+		
 	}
 }
