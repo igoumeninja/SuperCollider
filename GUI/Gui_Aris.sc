@@ -2,7 +2,7 @@
 100612 igoumeninja
 Aris Bezas
 
-This class create the Graphical User Interfaces (GUI) for Gran Cielo project.
+This class create the Graphical User Interfaces (GUI) for live Performance.
 The GUI are sending OSC messages to localhost (127.0.0.1) and port 12345 (OF port) 
 In the class also activate the MIDI input and convert it to OSC. 
 For more details check: 
