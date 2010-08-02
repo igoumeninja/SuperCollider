@@ -21,6 +21,7 @@ How we make this:
 
 Notes: - change IP address to send OSC messages to a different computer
 SendAmpFreq.start
+x = Synth("SendAmpPitch")
 */
 
 SendAmpFreq {
