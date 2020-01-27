@@ -62,7 +62,7 @@ MakeResponders {
 
 	makeOnsetResp {
 		^OSCresponder(server.addr, '/onset',{ arg time,responder,msg;
-			addr.sendMsg("/onset");
+			NetAddr("127.0.0.1", 9005).sendMsg("/onset");
 			//OF.mlab('onset');
 		});
 	}

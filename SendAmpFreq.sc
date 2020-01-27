@@ -4,6 +4,7 @@ A class based on SendAmpFreq for machine listening.
 
 a = SendAmpFreq.new
 a.start
+
  .
 OSCFunc.trace(fofalse)
 a.stop

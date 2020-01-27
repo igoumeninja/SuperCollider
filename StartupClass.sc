@@ -30,16 +30,37 @@ StartUpClass {
 			////////////////////////////////////////////////////////////////////////////////////////////////
 			~startupTask = Task({
 				~sendAmpFreq = SendAmpFreq.new;              0.4.wait;
-				~sendAmpFreq.start;                          0.4.wait;
+				//~sendAmpFreq.start;                          0.4.wait;
 				~sendOnsets = SendOnsets.new;                0.4.wait;
 				//~sendOnsets.start;                           0.4.wait;
 				//~fftTask.start;
 				~makeResponders = MakeResponders.new;        0.4.wait;
 				~makeResponders.all;                         0.4.wait;
 			}).start;
-			"hey Jude".postln;
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			~respondersTask = Task({
+				~fftTaskResp = OSCFunc({
+					arg msg, time, addr, recvPort;
+					if (msg[1] == 0, { ~fftTask.stop; }, {~fftTask.start; });
+					[msg, time, addr, recvPort].postln; }, '/startFFT');
+				0.04.wait;
+				~ampFreqTaskResp = OSCFunc({
+					arg msg, time, addr, recvPort;
+					if (msg[1] == 0, { ~sendAmpFreq.stop; }, {~sendAmpFreq.start; });
+					[msg, time, addr, recvPort].postln; }, '/sendAmpFreq');
+				0.04.wait;
+				~onsetTaskResp = OSCFunc({
+					arg msg, time, addr, recvPort;
+					if (msg[1] == 0, { ~sendOnsets.stop; }, {~sendOnsets.start; });
+					[msg, time, addr, recvPort].postln; }, '/sendOnsets');
+			}).start;
+			~removeRespondersTask = Task({
+				~fftTaskResp.free;
+				~onsetTaskResp.free;
+			});
+			//~removeRespondersTask.start;
 			OSCFunc.trace(true);
-			// something to do...
 		}
 	}
 }
