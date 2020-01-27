@@ -4,7 +4,7 @@ A class based on SendAmpFreq for machine listening.
 
 a = SendAmpFreq.new
 a.start
-OSCFunc.trace(true)
+ .
 OSCFunc.trace(fofalse)
 a.stop
 a.dump
@@ -40,8 +40,8 @@ SendAmpFreq {
 				| chan, ampTrig = 1, freqTrig = 2, impulseRate = 24 |
 				var trig, in, amp, freq, hasFreq;
 				trig = Impulse.kr(impulseRate);
-				//in = SoundIn.ar(chan);
-				in = SinOsc.ar(SinOsc.kr(400,2pi,100,0.5),0,SinOsc.kr(0.5, 1.5pi, 1, 0.5));
+				in = SoundIn.ar(chan);
+				//in = SinOsc.ar(SinOsc.kr(40,2pi,100,0.5),0,SinOsc.kr(0.5, 1.5pi, 1, 0.5));
 				amp = Amplitude.kr(in, 0.001, 0.001);
 				#freq, hasFreq = Pitch.kr(in, ampThreshold: 0.02, median: 1);
 				SendTrig.kr(trig, ampTrig, amp);

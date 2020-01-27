@@ -51,8 +51,8 @@ MakeResponders {
 	makeAudioResp {
 		^OSCresponder(server.addr, '/tr',{ arg time,responder,msg;
 			switch(msg[2],
-				1, { addr.sendMsg("/soundSketch/x", msg[3]);},
-				2, { addr.sendMsg("/soundSketch/y", msg[3]);},
+				1, { NetAddr("127.0.0.1", 9005).sendMsg("/soundSketch/x", msg[3]);},
+				2, { NetAddr("127.0.0.1", 9005).sendMsg("/soundSketch/y", msg[3]);},
 				3, { OF.mlab('specCentroid', msg[3]);},
 				4, { OF.mlab('specFlatness', msg[3]);},
 				5, { OF.mlab('loudness', msg[3]);}
