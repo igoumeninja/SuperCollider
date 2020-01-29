@@ -28,6 +28,22 @@ StartUpClass {
 			});
 			////////////////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////////////////////
+			~screenWidth = 1900;
+			~screenHeight = 1080;
+
+			~imageTask = Task({
+				inf.do({
+					NetAddr("127.0.0.1", 9005).sendMsg(
+						"/drawImage", rrand(0,50).asInteger,
+						100*(rrand(0,20)).asInteger,
+						100*(rrand(0,10)).asInteger,
+						100.asInteger,
+						100.asInteger);
+					0.01.wait;
+				})
+			});
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////////////////////
 			~startupTask = Task({
 				~sendAmpFreq = SendAmpFreq.new;              0.4.wait;
 				//~sendAmpFreq.start;                          0.4.wait;
@@ -39,28 +55,36 @@ StartUpClass {
 			}).start;
 			////////////////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////////////////////
+			thisProcess.openUDPPort(46100);
+			~scNetAddr = NetAddr.new("127.0.0.1", 46100);
 			~respondersTask = Task({
 				~fftTaskResp = OSCFunc({
 					arg msg, time, addr, recvPort;
 					if (msg[1] == 0, { ~fftTask.stop; }, {~fftTask.start; });
-					[msg, time, addr, recvPort].postln; }, '/startFFT');
+					[msg, time, addr, recvPort].postln; }, '/startFFT', recvPort: 46100);
 				0.04.wait;
 				~ampFreqTaskResp = OSCFunc({
 					arg msg, time, addr, recvPort;
 					if (msg[1] == 0, { ~sendAmpFreq.stop; }, {~sendAmpFreq.start; });
-					[msg, time, addr, recvPort].postln; }, '/sendAmpFreq');
+					[msg, time, addr, recvPort].postln; }, '/sendAmpFreq', recvPort: 46100);
 				0.04.wait;
 				~onsetTaskResp = OSCFunc({
 					arg msg, time, addr, recvPort;
 					if (msg[1] == 0, { ~sendOnsets.stop; }, {~sendOnsets.start; });
-					[msg, time, addr, recvPort].postln; }, '/sendOnsets');
+					[msg, time, addr, recvPort].postln; }, '/sendOnsets', recvPort: 46100);
+				~imageTaskResp = OSCFunc({
+					arg msg, time, addr, recvPort;
+					if (msg[1] == 0, { ~imageTask.stop; }, {~imageTask.start; });
+					[msg, time, addr, recvPort].postln; }, '/imageTask', recvPort: 46100);
 			}).start;
 			~removeRespondersTask = Task({
 				~fftTaskResp.free;
+				~ampFreqTaskResp.free;
 				~onsetTaskResp.free;
+				~imageTaskResp.free;
 			});
 			//~removeRespondersTask.start;
-			OSCFunc.trace(true);
+			//OSCFunc.trace(true);
 		}
 	}
 }
