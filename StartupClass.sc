@@ -28,6 +28,19 @@ StartUpClass {
 			});
 			////////////////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////////////////////
+			~letterTask = Task({
+				inf.do({
+					NetAddr("127.0.0.1", 12345).sendMsg(
+						"/writeString",
+						["ς","ε","ρ","τ","υ","θ","ι","ο","π","α","σ","δ","φ","γ","η","ξ","κ","λ","ζ","χ","ψ","ω","β","ν","μ"].at(rrand(0,24).asInteger).asString,
+						100*(rrand(0,20)).asInteger,
+						100*(rrand(0,10)).asInteger,
+						255.asInteger,255.asInteger,255.asInteger,255.asInteger);
+					0.01.wait;
+				})
+			});
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////////////////////
 			~screenWidth = 1900;
 			~screenHeight = 1080;
 
@@ -72,6 +85,10 @@ StartUpClass {
 					arg msg, time, addr, recvPort;
 					if (msg[1] == 0, { ~sendOnsets.stop; }, {~sendOnsets.start; });
 					[msg, time, addr, recvPort].postln; }, '/sendOnsets', recvPort: 46100);
+				~letterTaskResp = OSCFunc({
+					arg msg, time, addr, recvPort;
+					if (msg[1] == 0, { ~letterTask.stop; }, {~letterTask.start; });
+					[msg, time, addr, recvPort].postln; }, '/letterTask', recvPort: 46100);
 				~imageTaskResp = OSCFunc({
 					arg msg, time, addr, recvPort;
 					if (msg[1] == 0, { ~imageTask.stop; }, {~imageTask.start; });
@@ -81,6 +98,7 @@ StartUpClass {
 				~fftTaskResp.free;
 				~ampFreqTaskResp.free;
 				~onsetTaskResp.free;
+				~letterTaskResp.free;
 				~imageTaskResp.free;
 			});
 			//~removeRespondersTask.start;
