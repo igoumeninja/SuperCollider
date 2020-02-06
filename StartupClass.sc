@@ -33,10 +33,10 @@ StartUpClass {
 					NetAddr("127.0.0.1", 12345).sendMsg(
 						"/writeString",
 						["ς","ε","ρ","τ","υ","θ","ι","ο","π","α","σ","δ","φ","γ","η","ξ","κ","λ","ζ","χ","ψ","ω","β","ν","μ"].at(rrand(0,24).asInteger).asString,
-						100*(rrand(0,20)).asInteger,
-						100*(rrand(0,10)).asInteger,
+						16*(rrand(0,200)).asInteger,
+						18*(rrand(0,100)).asInteger,
 						255.asInteger,255.asInteger,255.asInteger,255.asInteger);
-					0.01.wait;
+					0.001.wait;
 				})
 			});
 			////////////////////////////////////////////////////////////////////////////////////////////////
