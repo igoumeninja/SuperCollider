@@ -1,3 +1,15 @@
+"cd ~/Code/oF_apps/recover/drawingApp && make".unixCmd
+"cd ~/Code/oF_apps/recover/drawingApp && make run".unixCmd
+"cd ~/Code/oF_apps/recover/drawingApp && make && make run".unixCmd
+
+"cd ~/Code/oF_apps/recover/controlApp && make".unixCmd
+"cd ~/Code/oF_apps/recover/controlApp && make run".unixCmd
+
+
+
+
+
+
 NetAddr.new("127.0.0.1", 12345).sendMsg("/writeString", "ένα", 200.asInteger,400.asInteger,255.asInteger,255.asInteger,255.asInteger,255.asInteger);
 
 (
