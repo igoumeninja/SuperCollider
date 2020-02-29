@@ -1,0 +1,190 @@
+TITLE:: Rhythm
+summary:: play tradicional rhythms with SuperCollider
+categories:: AB Class
+
+DESCRIPTION::
+Main use of the Class:
+code::
+Rhythm.play(rhythmID, bpm, intitialize);
+Rhythm.play(2,100,1);  // Initialize and play a Rhythm
+Rhythm.play(2,100);    // just change rhytm and bpm
+
+Examples:
+---------
+Rhythm.play(45,100,1); // Γεωργίτσα
+Rhythm.play(45,80,1);  // της τριανταφυλλιάς τα φύλλα
+Rhythm.play(52,80);    // Μπαζαρκάνα
+Rhythm.play(12.1,80);  // Ζαγορίσιος
+Rhythm.play(12.1,120); // Τσακώνικος
+Rhythm.play(16,2.5,1); // Τα έρημα τα ξένα
+
+Rhythm.mute // for mute
+
+Change the Synth
+~instrumentPPatt.source = Pseq([\simplePlayBuf], inf);
+~instrumentPPatt.source = Pseq([\mridangam], inf);
+
+::
+
+Rythm is a tool to play tradicional rhythms with SuperCollider
+code::
+1    	: Ρυθμός 2 χρόνων
+			- Χασάπικο αργό ή χασάπικο γρήγορο ή χασαποσέρβικο
+			- Έχε Γεια Παναγιά
+			- Χασάπης - Μ.Βαμβακάρης
+			- Τουμπουρλίκα - Π.Τούντας
+2    	: Ρυθμός 3 χρόνων
+			- Ντελί Παππάς
+			- Δόντια Πυκνά
+			- Κοντούλα Λεμονιά
+3    	: Ρυθμός 4 χρόνων
+	 		- Χορός στα δύο ή Πωγωνίσιο
+4    	: Ρυθμός 4 χρόνων
+5    	: Ρυθμός 4 χρόνων
+6		: Ρυθμός 4 χρόνων
+7		: Σούστα (Γρηγορόμπαλλος, Πεντοζάλης, Ρεπαντί, Κουρσάρικος)
+			- Πάντα με κάνεις να πονώ
+	 		- Χορέψετε, χορέψετε
+8.1~2	: Μπάλος
+Rhythm.play(8.1,180,1);  // Μπάλλος
+9.1~2  	: Τσάμικο
+Rhythm.play(9.1,280,1); // Τα έρημα τα ξένα
+10.1~2	: Τσάμικο Ηπείρου
+			- Ανάθεμα ποιός έριξε τα μάγια στο πηγάδι
+			- Την πέρδικα που πιάσατε ...
+11.1~2 	: Τσάμικο Ηπείρου
+			- Κλέφτες
+			- Ξύπνα περιδκομάτα μου  (αργόσυρτα με ιδιότροπο χαρακτήρα)
+12.1~3 	: Ζαγορίσιος
+			- Βασιλαρχόντισσα
+			- Ζαγορίσιος
+			- Μπουλονάσιενα
+			- Αλεξάνδρα
+			- Βιργινάδα
+			- Παπαδιά
+			- Σου πα μανά παντρεψέ με (Τσακώνικος)
+Rhythm.play(12.1,90);  // Βιργινάδα
+13   	: Μπεράτι Ηπείρου
+14   	: Μπεράτι Ηπείρου - TODO
+15.1~3  : Συρτός
+16      : Αργό ή βαρύ καλματιανό ή Μπεράτι Θεσσαλίας
+Rhythm.play(16,2.5,1); // Τα έρημα τα ξένα
+19~27   : Συρτό Καλαματιανό
+40      : Κιόρογλου
+Rhythm.play(40,80,1);  // Κιόρογλου
+45      : Παλιό ή Μονό Ζεϊμπέκικο
+                - Σαν τα μαρμαρα της Πόλης
+                - Μανταλιώ και Μανταλένα
+                - Γιωργίτσα
+                - Συννεφιασμένη Κυριακή
+47	 	: Απτάλικο Ζεϊμπέκικο (9/4)
+			- Της τριανταφυλλιάς τα φύλλα
+			- Ολμάζ
+			- Αηδίνικο
+			- Στο Φάληρο που πλένεσαι
+52		: Καρσιλαμάς (9/8)
+			- Καρσιλαμάς ή Αντικριστός
+			- Σύρε να πεις στη μάνα σου  (Μ.Ασία)
+			- Σφαρλής (Α.Θράκη)
+			- Η Ματένια (Α.Θράκη)
+			- Μπρέ Μανώλη (Α.Θράκη)
+			- Φυσούνι (Ήπειρος)
+			- Μπαζαρκάνα (Ήπειρος)
+			- Τσουράπια (Μακεδονία)
+			- Πιπιλομάταινα (Πόντος)
+			- Πατρινιά (Λαικό)
+			- Για κοίτα κόσμε ένα κορμί (Λαικό)
+			- Στη Σμύρνη στο παλιό τσαρδί (Λαικό)
+			- Τι Κοζάνι, τι Λωζάνη (Λαικό)
+			- Καράβια βγήκαν στη στεριά (Λαικό)
+56	 	: Τσιφτετέλι -	TODO
+63              :
+Rhythm.play(63,110,1); // Μυσιρλου
+			-
+
+::
+
+CLASSMETHODS::
+
+METHOD:: initClass
+ Load the Buffers, store the Synhts, and define ProxyPattern
+code::
+//ratio= [   0,    1,    2,     3,     4,       5,    6,     7]
+//ratio= [ 2/4,  4/4,  8/8, 16/16,  33/32,    3/4,  7/8,   9/8]
+~ratio = [1/60, 1/60, 1/30,  1/15,   2/15, 0.4/18, 1/15, 0.1/3];
+::
+METHOD:: play
+code::
+Rythm.play;
+Rythm.play(rythmID, bpm);
+Rythm.play(6);
+Rythm.play(47,220);
+::
+
+METHOD:: stop
+
+METHOD:: sendTheSynths
+code::
+~instrumentPPatt.source = Pseq([\mridangam], inf);
+~instrumentPPatt.source = Pseq([\phasorPlayBuf], inf);
+~instrumentPPatt.source = Pseq([\playBufGVerb], inf);
+~instrumentPPatt.source = Pseq([\simplePlayBuf], inf);
+::
+
+For Mic Input
+code::
+//living room
+a = Synth(\gverb_mic, [\roomsize, 16, \revtime, 1.24, \damping, 0.10, \inputbw, 0.95, \drylevel -3, \earlylevel, -15, \taillevel, -17]);
+a.free;
+
+//church
+a = Synth(\gverb_mic, [\roomsize, 80, \revtime, 4.85, \damping, 0.41, \inputbw, 0.19, \drylevel -3, \earlylevel, -9, \taillevel, -11]);
+a.free;
+
+// cathedral
+a = Synth(\gverb_mic, [\roomsize, 243, \revtime, 1, \damping, 0.1, \inputbw, 0.34, \drylevel -3, \earlylevel, -11, \taillevel, -9]);
+4a.free
+
+// canyon
+a = Synth(\gverb_mic, [\roomsize, 300, \revtime, 103, \damping, 0.43, \inputbw, 0.51, \drylevel -5, \earlylevel, -26, \taillevel, -20]);
+::
+
+METHOD:: defineProxyPattern
+code::
+~instrumentPPatt = PatternProxy(Pseq([\simplePlayBuf], inf));
+~ratePPatt = PatternProxy(Pseq([1], inf));
+~bufnumPPatt = PatternProxy(Pseq([~dum, ~te], inf));
+~ampPPatt = PatternProxy(Pseq([0, 0], inf));
+~durPPatt = PatternProxy(Pseq([1, 1], inf));
+
+~rythm = Pbind(
+	\instrument,     ~instrumentPPatt,
+	\rate,           ~ratePPatt,
+	\bufnum,         ~bufnumPPatt,
+	\amp,            ~ampPPatt,
+	\dur,            ~durPPatt,
+);
+::
+
+METHOD:: loadTheBuffers
+code::
+~bass_drum = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/bass_Drum_Single_Kick.aiff");
+~gonga = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/gonga_single_hit.aiff");
+~bell = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/agogo_bell.aiff");
+~tambourine = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/tambourine.aiff");
+~motoLoop = Buffer.read(Server.default, "/Users/ari/Media/sounds/loops/MotownDrummer08.aif");
+
+//default
+~dum = ~bass_drum;
+~te  = ~gonga;
+::
+
+EXAMPLES::
+
+Start the Rythm:
+code::
+
+Rhythm.play(2,100,1);  // Initialize and play a Rhythm
+Rhythm.play(2,100);    // just change rhytm and bpm
+~instrumentPPatt.source = Pseq([\simplePlayBuf], inf);
+::

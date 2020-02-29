@@ -1,10 +1,11 @@
+// ~startAppTask.start
 StartUpClass {
 	*initClass {
 		StartUp.add {
 			if (not(Server.default.serverRunning)) { Server.default.boot };
 			~screenWidth = 1900;
 			~screenHeight = 1080;
-			//- Startuptask
+			//- StarAppptask
          		  ~startAppTask = Task({
 			     1.do({
                                "cd ~/Code/oF_apps/recover/drawingApp && make run".unixCmd;
@@ -46,7 +47,7 @@ StartUpClass {
 						16*(rrand(0,200)).asInteger,
 						18*(rrand(0,100)).asInteger,
 						255.asInteger,255.asInteger,255.asInteger,255.asInteger);
-					0.001.wait;
+					0.01.wait;
 				})
 			});
 			////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +76,7 @@ StartUpClass {
 						100*(rrand(0,10)).asInteger,
 						100.asInteger,
 						100.asInteger);
-					0.01.wait;
+					0.1.wait;
 				})
 			});
 			////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,248 @@
+TITLE:: Rythm
+summary:: play tradicional rythms with SuperCollider
+categories:: AB Class
+related:: not yet
+
+DESCRIPTION::
+Rythm is a tool to play tradicional rythms with SuperCollider
+code::
+1    	: Ρυθμός 2 χρόνων
+			- Χασάπικο αργό ή χασάπικο γρήγορο ή χασαποσέρβικο
+			- Έχε Γεια Παναγιά
+			- Χασάπης - Μ.Βαμβακάρης
+			- Τουμπουρλίκα - Π.Τούντας
+2    	: Ρυθμός 3 χρόνων
+			- Ντελί Παππάς
+			- Δόντια Πυκνά
+			- Κοντούλα Λεμονιά
+3    	: Ρυθμός 4 χρόνων
+	 		- Χορός στα δύο ή Πωγωνίσιο
+4    	: Ρυθμός 4 χρόνων
+5    	: Ρυθμός 4 χρόνων
+6		: Ρυθμός 4 χρόνων
+7		: Σούστα (Γρηγορόμπαλλος, Πεντοζάλης, Ρεπαντί, Κουρσάρικος)
+			- Πάντα με κάνεις να πονώ
+	 		- Χορέψετε, χορέψετε
+8.1~2	: Μπάλος
+9.1~2  	: Τσάμικο
+10.1~2	: Τσάμικο Ηπείρου
+			- Ανάθεμα ποιός έριξε τα μάγια στο πηγάδι
+			- Την πέρδικα που πιάσατε ...
+11.1~2 	: Τσάμικο Ηπείρου
+			- Κλέφτες
+			- Ξύπνα περιδκομάτα μου  (αργόσυρτα με ιδιότροπο χαρακτήρα)
+12.1~3 	: Ζαγορίσιος
+			- Βασιλαρχόντισσα
+			- Ζαγορίσιος
+			- Μπουλονάσιενα
+			- Αλεξάνδρα
+			- Βιργινάδα
+			- Παπαδιά
+			- Σου πα μανά παντρεψέ με (Τσακώνικος)
+13   	: Μπεράτι Ηπείρου
+14   	: Μπεράτι Ηπείρου - TODO
+47	 	: Απτάλικο Ζεϊμπέκικο (9/4)
+			- Της τριανταφυλλιάς τα φύλλα
+			- Ολμάζ
+			- Αηδίνικο
+			- Στο Φάληρο που πλένεσαι
+52		: Καρσιλαμάς (9/8)
+			- Καρσιλαμάς ή Αντικριστός
+			- Σύρε να πεις στη μάνα σου  (Μ.Ασία)
+			- Σφαρλής (Α.Θράκη)
+			- Η Ματένια (Α.Θράκη)
+			- Μπρέ Μανώλη (Α.Θράκη)
+			- Φυσούνι (Ήπειρος)
+			- Μπαζαρκάνα (Ήπειρος)
+			- Τσουράπια (Μακεδονία)
+			- Πιπιλομάταινα (Πόντος)
+			- Πατρινιά (Λαικό)
+			- Για κοίτα κόσμε ένα κορμί (Λαικό)
+			- Στη Σμύρνη στο παλιό τσαρδί (Λαικό)
+			- Τι Κοζάνι, τι Λωζάνη (Λαικό)
+			- Καράβια βγήκαν στη στεριά (Λαικό)
+56	 	: Τσιφτετέλι -	TODO
+			-
+
+::
+
+CLASSMETHODS::
+
+METHOD:: initClass
+ Load the Buffers, store the Synhts, and define ProxyPattern
+code::
+//ratio= [   0,    1,    2,     3,     4,       5,    6,     7]
+//ratio= [ 2/4,  4/4,  8/8, 16/16,  33/32,    3/4,  7/8,   9/8]
+~ratio = [1/60, 1/60, 1/30,  1/15,   2/15, 0.4/18, 1/15, 0.1/3];
+::
+METHOD:: play
+code::
+Rythm.play;
+Rythm.play(rythmID, bpm);
+Rythm.play(6);
+Rythm.play(47,220);
+::
+
+METHOD:: stop
+
+METHOD:: sendTheSynths
+code::
+~instrumentPPatt.source = Pseq([\mridangam], inf);
+~instrumentPPatt.source = Pseq([\phasorPlayBuf], inf);
+~instrumentPPatt.source = Pseq([\playBufGVerb], inf);
+~instrumentPPatt.source = Pseq([\simplePlayBuf], inf);
+::
+
+For Mic Input
+code::
+//living room
+a = Synth(\gverb_mic, [\roomsize, 16, \revtime, 1.24, \damping, 0.10, \inputbw, 0.95, \drylevel -3, \earlylevel, -15, \taillevel, -17]);
+a.free;
+
+//church
+a = Synth(\gverb_mic, [\roomsize, 80, \revtime, 4.85, \damping, 0.41, \inputbw, 0.19, \drylevel -3, \earlylevel, -9, \taillevel, -11]);
+a.free;
+
+// cathedral
+a = Synth(\gverb_mic, [\roomsize, 243, \revtime, 1, \damping, 0.1, \inputbw, 0.34, \drylevel -3, \earlylevel, -11, \taillevel, -9]);
+4a.free
+
+// canyon
+a = Synth(\gverb_mic, [\roomsize, 300, \revtime, 103, \damping, 0.43, \inputbw, 0.51, \drylevel -5, \earlylevel, -26, \taillevel, -20]);
+::
+
+METHOD:: defineProxyPattern
+code::
+~instrumentPPatt = PatternProxy(Pseq([\simplePlayBuf], inf));
+~ratePPatt = PatternProxy(Pseq([1], inf));
+~bufnumPPatt = PatternProxy(Pseq([~dum, ~te], inf));
+~ampPPatt = PatternProxy(Pseq([0, 0], inf));
+~durPPatt = PatternProxy(Pseq([1, 1], inf));
+
+~rythm = Pbind(
+	\instrument,     ~instrumentPPatt,
+	\rate,           ~ratePPatt,
+	\bufnum,         ~bufnumPPatt,
+	\amp,            ~ampPPatt,
+	\dur,            ~durPPatt,
+);
+::
+
+METHOD:: loadTheBuffers
+code::
+~bass_drum = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/bass_Drum_Single_Kick.aiff");
+~gonga = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/gonga_single_hit.aiff");
+~bell = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/agogo_bell.aiff");
+~tambourine = Buffer.read(Server.default, "/Users/ari/Media/sounds/percusion/tambourine.aiff");
+~motoLoop = Buffer.read(Server.default, "/Users/ari/Media/sounds/loops/MotownDrummer08.aif");
+
+//default
+~dum = ~bass_drum;
+~te  = ~gonga;
+::
+
+METHOD:: xasapiko
+code::
+~bufnumPPatt.source = Pseq([~dum, ~te], inf);
+~ampPPatt.source = Pseq([1, 1], inf);
+::
+
+METHOD:: trionXronon
+code::
+~bufnumPPatt.source = Pseq([~dum, ~te, ~te], inf);
+~ampPPatt.source = Pseq([1, 1, 1], inf);
+::
+
+METHOD:: mantilatos
+code::
+{version == 1} {
+	~bufnumPPatt.source = Pseq([~dum, 0,~te, ~te, ~te, ~te, ~te], inf);
+	~ampPPatt.source = Pseq([1, 0, 1, 1, 1, 1, 1], inf);
+}
+{version == 2} {
+	~bufnumPPatt.source = Pseq([~dum, 0,~te, 0, ~dum, 0, ~te], inf);
+	~ampPPatt.source = Pseq([1, 0, 1, 0, 1, 0, 1], inf);
+}
+{version == 3} {
+	~bufnumPPatt.source = Pseq([~dum, 0,~te, 0, ~te, 0, 0], inf);
+	~ampPPatt.source =    Pseq([   1, 0,  1, 0,   1, 0, 0], inf);
+}
+::
+
+METHOD:: tsifteteli
+code::
+		{version == 1} {
+			~bpm = ~ratio[2]*bpm;
+			~durPPatt.source = Pseq([1, 1, 1, 1, 1, 1, 1, 1], inf)/~bpm;
+			~bufnumPPatt.source = Pseq([~dum, ~te, 0, ~te, ~dum, 0, ~te, 0], inf);
+			~ampPPatt.source =    Pseq([1,    1,   0, 1,   1,    0, 1,   0], inf);
+		}
+		{version == 2} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~te, 0, ~te, ~te, ~te, 0, ~dum, 0, ~te, ~te, ~te, 0, ~te, ~te], inf);
+			~ampPPatt.source =    Pseq([1,    0, 1,   0, 1,   1,   1,   0,    1, 0,   1,   1,   1, 0,   1,   1], inf);
+		}
+		{version == 3} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~te, 0, ~te, ~te, ~te, 0, ~dum, ~te, ~te, ~te, ~te, 0, ~te, ~te], inf);
+			~ampPPatt.source =    Pseq([1,    0,   1, 0,   1,   1,   1, 0,    1,   1,   1,   1,   1, 0,   1,   1], inf);
+		}
+		{version == 4} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~te, ~te, ~te, ~te, ~te, 0, ~dum,   0, ~te, ~te,   ~te, 0, ~te, ~te], inf);
+			~ampPPatt.source =    Pseq([1,    0,   1,   1,   1,   1,   1, 0,    1,   0,   1,   1,     1, 0,   1,   1], inf);
+		}
+		{version == 5} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~dum, 0, ~te, ~te, ~te, 0, ~dum,   0, ~te, ~te,   ~te, 0, ~te, ~te], inf);
+			~ampPPatt.source =    Pseq([1,    0,   1,  0,   1,   1,   1, 0,    1,   0,   1,   1,     1, 0,   1,   1], inf);
+		}
+::
+
+
+METHOD:: tessaronXronon
+code::
+{version == 1} {
+	~bufnumPPatt.source = Pseq([~dum, 0, ~te, ~te, ~dum, 0, ~te, 0], inf);
+	~ampPPatt.source =    Pseq([   1, 0,   1,   1,    1, 0,   1, 0], inf);
+}
+{version == 2} {
+	~bufnumPPatt.source = Pseq([~dum, 0, ~te, ~te, ~dum, ~te, ~te, 0], inf);
+	~ampPPatt.source =    Pseq([   1, 0,   1,   1,    1,   1,   1, 0], inf);
+};
+
+::
+
+METHOD:: karsilamas
+
+METHOD:: sousta
+code::
+		~bpm = ~ratio[2]*bpm;
+		~durPPatt.source = Pseq([1, 1, 1, 1, 1, 1, 1, 1], inf)/~bpm;
+		case
+		{version == 1} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~te, ~te, ~dum, 0, ~te, 0], inf);
+			~ampPPatt.source =    Pseq([   1, 0,   1,   1,    1, 0,   1, 0], inf);
+		}
+		{version == 2} {
+			~bufnumPPatt.source = Pseq([~dum, 0, ~te, ~te, ~dum, ~te, ~te, 0], inf);
+			~ampPPatt.source =    Pseq([   1, 0,   1,   1,    1,   1,   1, 0], inf);
+		};
+::
+INSTANCEMETHODS::
+
+
+EXAMPLES::
+
+Start the Rythm:
+code::
+Rythm.play(2,100,1);  //Initialize
+Rythm.play(2,100);  //just change
+
+Rythm.trionXronon(18); //Dontia Pykna
+Rythm.xasapiko(100); //Katerina, Toumpourlika
+Rythm.mantilatos(3,100);
+
+Rythm.tsifteteli(1,90)
+Rythm.tsifteteli(5,90)
+
+Rythm.sousta(1,90)
+
+
+::
